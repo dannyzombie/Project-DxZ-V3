@@ -41,6 +41,7 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
+            position: relative; /* Added to position the tooltip */
         }
         .button {
             background-color: #1e90ff;
@@ -56,6 +57,20 @@
         .button:hover {
             background-color: #00bfff;
             transform: scale(1.05);
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: -30px; /* Adjust the position */
+            background-color: #282846;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            z-index: 1; /* Ensure it's above other elements */
+        }
+        .social-container:hover .tooltip {
+            display: block; /* Show the tooltip on hover */
         }
         .container {
             display: flex;
@@ -118,6 +133,7 @@
         <p>My name is Danny Zombie and I love video games. <br>Explore my favorite video games, watch gameplay videos, and join the gaming community.</p>
     </div>
     <div class="social-container">
+        <div class="tooltip">Click here for my socials!</div>
         <button class="button" onclick="toggleSocialLinks()">Join the Horde!</button>
         <div class="social-links" id="social-links">
             <a href="https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA" target="_blank">
