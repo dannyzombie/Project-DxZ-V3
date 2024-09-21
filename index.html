@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Danny Zombie's Gaming Hub! Explore my favorite video games, watch gameplay videos, and join the gaming community.">
+    <meta name="keywords" content="gaming, video games, Danny Zombie, game reviews, YouTube">
+    <title>Danny Zombie's Gaming Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1b1b32;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header, footer {
+            background-color: #282846;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-family: 'Creepster', cursive;
+            color: #1e90ff;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+        .description {
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #1e90ff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-bottom: 10px; /* Space between button and links */
+        }
+        .button:hover {
+            background-color: #00bfff;
+            transform: scale(1.05);
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 220px); /* Adjust based on header/footer height */
+        }
+        .video-container {
+            flex: 3;
+            background-color: #2e2e53;
+            position: relative;
+        }
+        #player {
+            width: 100%;
+            height: 100%;
+        }
+        .playlist-panel {
+            flex: 1;
+            background-color: #282846;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh; /* Limit height of the panel */
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .playlist-item img {
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+        }
+        footer p {
+            color: #b3b3cc;
+            font-size: 0.9em;
+        }
+        .social-links {
+            display: none;
+            margin-top: 10px;
+            flex-direction: row;
+        }
+        .social-links a {
+            margin: 0 10px;
+        }
+        .social-links img {
+            width: 50px;
+            transition: transform 0.3s;
+        }
+        .social-links img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Danny Zombie's Gaming Hub</h1>
+    </header>
+    <div class="description">
+        <p>My name is Danny Zombie and I love video games. <br>Explore my favorite video games, watch gameplay videos, and join the gaming community.</p>
+    </div>
+    <div class="social-container">
+        <button class="button" onclick="toggleSocialLinks()">Join the Horde!</button>
+        <div class="social-links" id="social-links">
+            <a href="https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/youtube-play--v1.png" alt="YouTube">
+            </a>
+            <a href="https://twitch.tv/DANNYZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/twitch--v1.png" alt="Twitch">
+            </a>
+            <a href="https://twitter.com/DANNYXZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/twitter-circled--v1.png" alt="Twitter">
+            </a>
+            <a href="https://instagram.com/DANNYXZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" alt="Instagram">
+            </a>
+            <a href="https://facebook.com/DANNYxZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/facebook--v1.png" alt="Facebook">
+            </a>
+            <a href="https://tiktok.com/@DANNYXZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/tiktok--v1.png" alt="TikTok">
+            </a>
+            <a href="https://medal.tv/U/DANNYZOMBIE" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/medal.png" alt="Medal">
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="video-container">
+            <div id="player"></div>
+        </div>
+        <div class="playlist-panel" id="playlist-panel"></div>
+    </div>
+    <footer>
+        <p>Thank you for visiting!</p>
+    </footer>
+
+    <script>
+        const videos = [
+            { id: 'iG4-vkwlua0', title: 'WE DID IT! BACK TO BACK WINS INTO DIAMOND, LETS GO #apexlegends #apex #gaming #apexgameplay #ranked' },
+            { id: 'pSG8lsEwn2o', title: 'Apex Legends ranked gameplay | Close game! 8 elims with squad | 4 kills 2k damage' },
+            { id: '6TKKxtONSqc', title: 'Apex Legends ranked gameplay - 11 elims with squad! Close game - Road to DIAMOND!' },
+            { id: 'xsyvRGug-Aw', title: 'Apex Legends Control Montage #control #apex #apexlegends #montage' },
+            { id: 'wZCC64nDniI', title: 'TM8 has immaculate awareness! xD #shorts #apexlegends #apexshorts #squad #funny #gameplay #memes' },
+            { id: 'sF2UCyJdejk', title: 'I RAN OUT OF AMMO T_T | Apex Legends gameplay | #apex #gaming #gameplay #season14 #s14 #apexlegends' },
+            { id: 'DdbDcg8AKfE', title: 'Apex Legends Ranking up Season 14 gameplay' },
+            { id: 'xZNt_t4EHw0', title: 'Dropshot games with a team! | Road to GC in Extra Modes | Rocket League Gameplay | Stream Highlight' },
+            { id: '7XiqtEMDAwk', title: 'Apex Legends Gameplay PoopMontage #5 | #apex #gaming #gameplay #season14 #s14 #apexlegends #montage' },
+            { id: 'WDPWRZZlkFc', title: 'Apex Legends 15 kills ( Xbox STREAM-HIGHLIGHTS made with Athenascope)' },
+            { id: 'gvOaKFMR9f4', title: 'Rocket League Extra modes | placements and grinding | half hour of me having fun | Stream Highlight' },
+            { id: 'UmQq6BSNjqc', title: 'APEX LEGENDS // battlepass grinding, need to get to level 100! (FULL-STREAM DANNY ZOMBIE)' },
+            { id: 'YxsMnHgzbgA', title: 'Made it to Diamond on Xbox! lets keep going! :D | Apex Legends gameplay (Full stream)' },
+            { id: '4LaLXpXYXl4', title: 'first guy had absolutely no idea what was coming to him! xD #shorts #apexlegends' },
+            { id: 'J-4kUPSXHKI', title: 'Stream Highlight: 2k dmg 8 kill game Win with mirage and i ranked up!' },
+            { id: '6rviozTkHys', title: 'Apex Legends Winter Express 2k damage 8 kill game // STREAM HIGHLIGHT GAMEPLAY' },
+            { id: 'mkuIN79idz0', title: 'Extra modes! Doing placements and just grinding! | stream #2 | ROCKET LEAGUE GAMEPLAY (FULL STREAM)' },
+            { id: '1cc3lwafEPg', title: 'Stream Highlight: 1600dmg 6 kill Win with revenant in Plat lobby' },
+            { id: 'Z8tOZYK2F3Q', title: 'yo theres nobody here??! | Xbox Titanfall1 servers | Titanfall2 | Apex Legends| End w/ Rocket League' },
+            { id: 'FgqAP2twZgs', title: 'Highlight: Pilot hunting // Apex Legends Duos - 5 kill W on Olympus' },
+            { id: '2x4HNRLvKZw', title: 'Highlight: WE WILL GET TO DIAMOND EVENTUALLY | Gold Rank Ranked Gameplay, Close Games | APEX LEGENDS' },
+            { id: 'xQC3RzNvDZc', title: 'i love this game // chillin // pc Titanfall 2' },
+            { id: 'YR9pGibUXLg', title: 'wut it do lets get to Diamond b4 season ends! // Full Stream Apex Legends' },
+            { id: 'dRVS7QsOIuo', title: 'Highlight: Pilot hunting // Attrition - Complex - 30 Pilot kills' },
+            { id: '1zm6J38hZIk', title: 'Highlight: Pilot hunting // Apex Legends Arenas - 7 Kill game + W' },
+            { id: 'UdMSh8oFSs4', title: '"git gud" grind | Rocket League Gameplay | Full Stream' },
+            { id: '8S0OIa_AQ4Q', title: 'Highlight: lets see how far we get today. // pulled an ACEU in ranked. 6 kill solo game' },
+            { id: '_gF7aKynQuo', title: 'Highlight: lets see how far we get today. // 10 kill game 1600 damage in pubs with @zer0gravity66' },
+            { id: 'kVwxwMQP1oQ', title: 'Highlight: lets see how far we get today. // 11 kill game 3k damage in Gold // Ranked Apex Legends' },
+            { id: 'nHeo2gBgAEE', title: 'Highlight: ranked climb so i can play w/my friends // Win 3! Let\'s go! - 8 kills 2k damage' },
+            { id: 'o1dcWM684-c', title: 'Apex Legends Full Stream // ranked climb so i can play w/my friends' },
+            { id: 'd3sZ88nbtvo', title: 'Highlight: Pilot hunting // 34 Pilot kills in Forwardbase Kodai // Attrition' },
+            { id: 'V6l3lZU0fTk', title: 'video game jams // weeeeeee // Titanfall 2 into Rocket League' },
+            { id: 'LbV1cn5qGGM', title: 'Pilot hunting ~ Titanfall 2 then Apex Legends and Rocket League' },
+            { id: 'Z8KFkWBu9PQ', title: 'APEX LEGENDS GAMEPLAY DUOS // TRIOS TRYING OUT FUSE | BP GRIND | XBOX (FULL STREAM)' },
+            { id: 'EMJCeZOhubY', title: 'Highlight: ranked climb so i can play w/my friends // Win #2 - 9 kills - 2k damage' },
+            { id: '93HU5jBtj7w', title: 'Highlight: Pilot hunting // 33 Pilot Kills in Relic, made a comeback! // Attrition // SKIP TO 2:20' },
+            { id: 'Uqn4KcwoIKk', title: 'Highlight: Pilot hunting // Attrition on Forwardbase Kodai - 30 Pilot kills' },
+            { id: 'Sh9dOHaFj9A', title: 'Highlight: video game jams // weeeeeee // 36 Pilot kills in Attrition - Boomtown' },
+            { id: '1J2Tzczbc0w', title: 'Highlight: i love this game // Pilot vs Pilot // LMFAO someone thought i was hacking 🤣' },
+            { id: 'gj122kRh3JA', title: 'Highlight: i love this game // Bounty Hunt - i do a little bit of everything 😏' },
+            { id: 'Uz3cgd6op2E', title: 'Highlight: i love this game // PC - audio went out half way :( and we lost :(( but my ending was dec' },
+            { id: 'AQzGLTJHRvs', title: 'WE WILL GET TO DIAMOND EVENTUALLY | new year same me | APEX LEGENDS GAMEPLAY (FULL STREAM)' },
+            { id: '1QS36KySpt4', title: 'disruptor rounds are coming back!!? lets get to Diamond b4 season ends! // Full Stream Apex Legends' },
+            { id: '112u-rnku_s', title: 'Highlight: Ranked Apex climb so i can play w/my friends // First W - 7 kills' },
+            { id: 'zRua-ugVNT4', title: 'Apex Legends Full Stream // The goal is platinum rank and 900 kills with wraith' },
+            { id: 'wNU4BhGRhkA', title: 'Highlight: Pilot hunting // 26 Pilot kills on Exoplanet // Attrition' }
+        ];
+        
+        let player;
+        
+        // Load YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            randomizeAndLoadVideo();
+            displayPlaylist();
+        }
+
+        function randomizeAndLoadVideo() {
+            const randomIndex = Math.floor(Math.random() * videos.length);
+            const videoId = videos[randomIndex].id;
+
+            player = new YT.Player('player', {
+                width: '100%',
+                height: '100%',
+                videoId: videoId,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    mute: 1,
+                    rel: 0
+                },
+                events: {
+                    onReady: (event) => {
+                        event.target.setVolume(30); // Set volume to 30%
+                    }
+                }
+            });
+        }
+
+        function displayPlaylist() {
+            const playlistPanel = document.getElementById('playlist-panel');
+            playlistPanel.innerHTML = ''; // Clear the panel
+            videos.forEach(video => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.onclick = () => loadVideo(video.id);
+                item.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${video.id}/default.jpg" alt="Video Thumbnail">
+                    <span>${video.title}</span>
+                `;
+                playlistPanel.appendChild(item);
+            });
+        }
+
+        function loadVideo(videoId) {
+            player.loadVideoById(videoId);
+        }
+
+        function toggleSocialLinks() {
+            const socialLinks = document.getElementById('social-links');
+            socialLinks.style.display = socialLinks.style.display === "flex" ? "none" : "flex";
+        }
+    </script>
+</body>
+</html>
