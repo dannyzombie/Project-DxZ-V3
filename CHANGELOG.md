@@ -5,6 +5,15 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v4.2 (2026-11-15)
+
+Fixes found in a full re-check of the site.
+
+### Fixed
+- Unmuting a video now really starts at 50% volume. In v4.0 it only switched to 50% when the video's state changed (paused, ended), so unmuting mid-video played at 100%. Tested with a real click on YouTube's unmute button, and the 50% carries over to the next video.
+- Corrected the descriptions of v1 and v2 on the All Versions page and in this changelog to match their actual code
+- README: the icon credits now say which icons come from Simple Icons, and no longer claim the page makes no outside image requests (playlist thumbnails load from YouTube)
+
 ## v4.1 (2026-11-15)
 
 All versions in one place.
@@ -22,7 +31,7 @@ All versions in one place.
 The first version built with Claude Code: a modern restyle and a much better video player.
 
 ### Added
-- Your avatar in an animated neon ring at the top of the page
+- My avatar in an animated neon ring at the top of the page
 - Neon magenta and purple color theme across the whole site
 - Prev and Next buttons under the video player, with the current video's title
 - Auto-play: when a video ends, the next one starts
@@ -33,7 +42,6 @@ The first version built with Claude Code: a modern restyle and a much better vid
 ### Changed
 - Social links redesigned: built-in brand icons with brand colors and smooth animations (no more images loaded from other sites)
 - Twitter link now points to x.com
-- First unmute starts at 50% volume
 - README rewritten to describe how the site really works
 
 ### Fixed
@@ -51,8 +59,9 @@ The original V3, built with ChatGPT.
 
 ## v2.0 (2024-09-21)
 
-- Zombie-style title font (Creepster) and a darker blue theme
-- "Join the Horde!" button that reveals the social links
+- Zombie-style title font (Creepster) and a dark navy-blue theme
+- Starts a random video from a hand-picked list of 46 (one of the 46 IDs is cut off and doesn't play)
+- "Join the Horde!" button that reveals links to Twitch, Twitter, Instagram, Facebook, TikTok and Medal
 - Full-screen YouTube player
 
 Originally its own repo, Project-DxZ-V2. Now in `archive/v2/`.
@@ -61,6 +70,7 @@ Originally its own repo, Project-DxZ-V2. Now in `archive/v2/`.
 
 The first version.
 
-- Simple dark page with one YouTube video and a link to my channel
+- Simple dark page that plays my YouTube playlist (muted autoplay) with a link to my channel
+- Briefly connected to dannyxzombie.com on 2024-09-11 (the domain setting was added and removed the same day)
 
 Originally its own repo, Project-DxZ-V1. Now in `archive/v1/`.

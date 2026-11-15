@@ -16,7 +16,7 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 
 - **One page, no build step:** plain HTML, CSS and JavaScript in `index.html`.
 - **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
-- **Icons:** inline SVG brand icons from [Simple Icons](https://simpleicons.org) (CC0), so there are no outside image requests.
+- **Icons:** the YouTube, Twitch, X, Instagram, Facebook and TikTok icons are from [Simple Icons](https://simpleicons.org) (CC0) and the Medal icon is a simple custom drawing. All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
 - **Hosting:** GitHub Pages with a custom domain (`CNAME`), behind Cloudflare.
 
 ## Files
@@ -33,7 +33,7 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 
 ## Versions
 
-Every release is tagged (`v1.0` to `v4.0` so far) and listed on the [Releases page](https://github.com/dannyzombie/dannyxzombie.com/releases), where you can browse or download any old version. You can also click through every version on the site itself at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/).
+Every release is tagged (`v1.0`, `v2.0` and so on) and listed on the [Releases page](https://github.com/dannyzombie/dannyxzombie.com/releases), where you can browse or download any old version. You can also click through every version on the site itself at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/).
 
 This repo holds the full history of all versions. V1 and V2 started out as separate repos (Project-DxZ-V1 and Project-DxZ-V2) and were merged in, commits and all, under `archive/`. See [CHANGELOG.md](CHANGELOG.md) for what changed in each one.
 
