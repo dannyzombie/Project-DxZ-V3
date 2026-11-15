@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Danny Zombie's Gaming Hub! Explore my favorite video games, watch gameplay videos, and join the gaming community.">
+    <meta name="keywords" content="gaming, video games, Danny Zombie, game reviews, YouTube">
+    <title>Danny Zombie's Gaming Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1b1b32;
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        header, footer {
+            background-color: #282846;
+            padding: 20px 0;
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-family: 'Creepster', cursive;
+            color: #1e90ff;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+        .description {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .video-container {
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            border: none; /* Remove border for a cleaner look */
+            background-color: #2e2e53; /* Background color */
+            position: relative;
+        }
+        #player {
+            width: 100%;
+            height: 100%; /* Full height of the container */
+        }
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+        .button {
+            background-color: #1e90ff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #00bfff;
+            transform: scale(1.05);
+        }
+        .social-links {
+            display: none;
+            margin-top: 10px;
+            flex-direction: row;
+        }
+        .social-links a {
+            margin: 0 10px;
+        }
+        .social-links img {
+            width: 50px;
+            transition: transform 0.3s;
+        }
+        .social-links img:hover {
+            transform: scale(1.1);
+        }
+        footer p {
+            color: #b3b3cc;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .description {
+                font-size: 1em;
+            }
+            .button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Danny Zombie's Gaming Hub</h1>
+    </header>
+    <div class="description">
+        <p>Hello! I'm Danny Zombie, a passionate gamer who loves to explore and share gaming experiences. <br>Join me on my adventures through my favorite games! Watch gameplay videos, and join the gaming community.</p>
+        <button class="button" title="Click here for my socials!" onclick="toggleSocialLinks()">Join the Horde!</button>
+        <div class="social-container" id="social-container">
+            <div class="social-links" id="social-links">
+                <a href="https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/youtube-play--v1.png" alt="YouTube">
+                </a>
+                <a href="https://twitch.tv/DANNYZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/twitch--v1.png" alt="Twitch">
+                </a>
+                <a href="https://twitter.com/DANNYXZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/twitter-circled--v1.png" alt="Twitter">
+                </a>
+                <a href="https://instagram.com/DANNYXZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" alt="Instagram">
+                </a>
+                <a href="https://facebook.com/DANNYxZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/facebook--v1.png" alt="Facebook">
+                </a>
+                <a href="https://tiktok.com/@DANNYXZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/tiktok--v1.png" alt="TikTok">
+                </a>
+                <a href="https://medal.tv/U/DANNYZOMBIE" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/medal.png" alt="Medal">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="video-container" id="video-container">
+        <div id="player"></div>
+    </div>
+    <footer>
+        <p>Thank you for visiting!</p>
+    </footer>
+
+    <script>
+        const videoIds = [
+            'vkwlua0', 'pSG8lsEwn2o', '6TKKxtONSqc', 'xsyvRGug-Aw', 'wZCC64nDniI',
+            'sF2UCyJdejk', 'DdbDcg8AKfE', 'xZNt_t4EHw0', '7XiqtEMDAwk', 'WDPWRZZlkFc',
+            'gvOaKFMR9f4', 'UmQq6BSNjqc', 'YxsMnHgzbgA', '4LaLXpXYXl4', 'J-4kUPSXHKI',
+            '6rviozTkHys', 'mkuIN79idz0', '1cc3lwafEPg', 'Z8tOZYK2F3Q', 'FgqAP2twZgs',
+            '2x4HNRLvKZw', 'xQC3RzNvDZc', 'YR9pGibUXLg', 'dRVS7QsOIuo', '1zm6J38hZIk',
+            'UdMSh8oFSs4', '8S0OIa_AQ4Q', '_gF7aKynQuo', 'kVwxwMQP1oQ', 'nHeo2gBgAEE',
+            'o1dcWM684-c', '_EBNwa_LiWM', 'd3sZ88nbtvo', 'V6l3lZU0fTk', 'LbV1cn5qGGM',
+            'Z8KFkWBu9PQ', 'EMJCeZOhubY', '93HU5jBtj7w', 'Uqn4KcwoIKk', 'Sh9dOHaFj9A',
+            '1J2Tzczbc0w', 'gj122kRh3JA', 'Uz3cgd6op2E', 'AQzGLTJHRvs', '1QS36KySpt4',
+            '112u-rnku_s'
+        ];
+
+        // Load YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        function onYouTubeIframeAPIReady() {
+            const randomIndex = Math.floor(Math.random() * videoIds.length);
+            player = new YT.Player('player', {
+                width: '100%',
+                height: '100%',
+                videoId: videoIds[randomIndex],
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    mute: 1,
+                    rel: 0
+                }
+            });
+        }
+
+        function toggleSocialLinks() {
+            const socialLinks = document.getElementById('social-links');
+            socialLinks.style.display = socialLinks.style.display === "flex" ? "none" : "flex";
+        }
+    </script>
+</body>
+</html>
