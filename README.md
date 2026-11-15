@@ -6,8 +6,8 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 
 ## Features
 
-- **Random video on load:** a random video from my channel plays when the page opens.
-- **Playlist panel:** pick any other video from the list.
+- **Video player with shuffle:** videos play back to back in a shuffled order with no repeats, with Prev/Next buttons and a toggle to switch to playlist order. Reloading the page carries on with the next video instead of starting over.
+- **Playlist panel:** pick any video from the list. The one playing is highlighted.
 - **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal, with animated brand-colored buttons.
 - **Works on phones:** on small screens the player goes full-width and the playlist moves underneath.
 - **Link previews:** sharing the link on Discord, X, iMessage and similar apps shows a preview card, and the site has its own icon in browser tabs.
@@ -28,6 +28,11 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 | `apple-touch-icon.png` | Icon shown when the site is saved to a phone's home screen |
 | `og-image.png` | Preview image shown when the link is shared |
 | `CNAME` | Points GitHub Pages at dannyxzombie.com |
+| `CHANGELOG.md` | What changed in each version |
+
+## Versions
+
+Every release is tagged (`v3.0`, `v4.0`, ...) and listed on the [Releases page](https://github.com/dannyzombie/Project-DxZ-V3/releases), where you can browse or download any old version. See [CHANGELOG.md](CHANGELOG.md) for what changed in each one.
 
 ## Run it locally
 
