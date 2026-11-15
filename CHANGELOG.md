@@ -5,6 +5,11 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v4.4 (2026-11-15)
+
+### Fixed
+- Long video titles no longer change the layout. The "now playing" title could widen the player column (measured: 16 different widths across the 47 titles at the same screen size) and squeeze the playlist, and 7 titles made the playlist scroll sideways. Now the player keeps one width per screen size and long hashtags in the playlist wrap. Measured on all 47 titles at 360, 375, 390, 768, 1024, 1280 and 1920 pixels wide: no overflow.
+
 ## v4.3 (2026-11-15)
 
 ### Fixed
