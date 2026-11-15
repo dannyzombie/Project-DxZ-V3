@@ -5,6 +5,12 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v4.3 (2026-11-15)
+
+### Fixed
+- The video player now loads as soon as the page opens. Cloudflare's Rocket Loader (a speed setting, on since 2026-11-03) was holding the page's script until the visitor moved the mouse, touched the screen or pressed a key, so the player area stayed empty until then. The script is now marked `data-cfasync="false"`, Cloudflare's documented way to exclude a script from Rocket Loader. Same fix applied to the archived v1, v2 and v3 pages.
+- v1's changelog entry now says the domain setting was only tried in 2024, before I owned the domain
+
 ## v4.2 (2026-11-15)
 
 Fixes found in a full re-check of the site.
@@ -71,6 +77,6 @@ Originally its own repo, Project-DxZ-V2. Now in `archive/v2/`.
 The first version.
 
 - Simple dark page that plays my YouTube playlist (muted autoplay) with a link to my channel
-- Briefly connected to dannyxzombie.com on 2024-09-11 (the domain setting was added and removed the same day)
+- A custom-domain setting for dannyxzombie.com was tried on 2024-09-11 and removed the same day, before I owned the domain
 
 Originally its own repo, Project-DxZ-V1. Now in `archive/v1/`.
