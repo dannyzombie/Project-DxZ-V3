@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Versions · Danny Zombie</title>
+    <meta name="description" content="Every version of dannyxzombie.com, from the first 2024 page to today. Click any version to see it exactly as it was.">
+    <link rel="canonical" href="https://dannyxzombie.com/archive/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#0f0814">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0814;
+            --surface: #1a0d22;
+            --surface-2: #241330;
+            --accent: #ff2fd2;
+            --accent-2: #a84dff;
+            --text-soft: #e6d9f0;
+            --muted: #b49fc4;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(255, 47, 210, 0.22), transparent 70%),
+                var(--bg);
+            min-height: 100vh;
+        }
+        a { color: inherit; }
+        .wrap { max-width: 980px; margin: 0 auto; padding: 48px 20px 64px; }
+        .back {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--muted); text-decoration: none; font-size: 0.95em;
+        }
+        .back:hover { color: #fff; }
+        h1 {
+            font-family: 'Creepster', cursive; font-weight: 400;
+            font-size: 3.2em; margin: 18px 0 8px; color: #ffd6f6;
+            text-shadow: 0 0 10px var(--accent), 0 0 28px rgba(255, 47, 210, 0.6);
+        }
+        .intro { color: var(--text-soft); line-height: 1.6; margin: 0 0 40px; max-width: 640px; }
+        .versions { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+        .card {
+            display: grid; grid-template-columns: 320px 1fr; gap: 22px;
+            background: var(--surface); border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px; padding: 16px; align-items: center;
+            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+        .card:hover { border-color: rgba(255, 47, 210, 0.5); transform: translateY(-3px); box-shadow: 0 14px 34px -18px var(--accent); }
+        .card.current { border-color: var(--accent); box-shadow: 0 0 24px -10px var(--accent); }
+        .shot { display: block; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 10; background: var(--surface-2); }
+        .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .tag {
+            font-weight: 700; font-size: 0.85em; letter-spacing: 0.5px;
+            padding: 4px 10px; border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        }
+        .tag.old { background: var(--surface-2); color: var(--text-soft); }
+        .date { color: var(--muted); font-size: 0.9em; }
+        h2 { margin: 4px 0 8px; font-size: 1.35em; }
+        .card p { margin: 0 0 14px; color: var(--text-soft); line-height: 1.55; font-size: 0.97em; }
+        .built { color: var(--muted); font-size: 0.88em; margin-bottom: 14px; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn {
+            display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px;
+            border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.92em;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 6px 18px -8px rgba(255, 47, 210, 0.7); }
+        .btn.ghost { border: 1px solid rgba(255, 255, 255, 0.2); color: var(--text-soft); }
+        footer { margin-top: 48px; color: var(--muted); font-size: 0.9em; text-align: center; }
+        @media (max-width: 720px) {
+            h1 { font-size: 2.4em; }
+            .card { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .card, .btn { transition: none; }
+            .card:hover, .btn:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <a class="back" href="/">&larr; Back to the current site</a>
+        <h1>All Versions</h1>
+        <p class="intro">Every version of this site, from my first page in 2024 to today. Each one is saved exactly as it was, so you can click through and see how it grew.</p>
+
+        <ol class="versions" reversed>
+            <li class="card current">
+                <a class="shot" href="/"><img src="img/v4.jpg" alt="Version 4: neon magenta theme with avatar and video player" width="640" height="400" loading="lazy"></a>
+                <div>
+                    <div class="meta"><span class="tag">v4.0 · Current</span><span class="date">November 2026</span></div>
+                    <h2>Modern restyle and shuffle player</h2>
+                    <p>Neon theme with my avatar, a layout that works on phones, rebuilt social icons, and a video player with Prev/Next, auto-play and shuffle.</p>
+                    <div class="built">Built with Claude Code</div>
+                    <div class="actions">
+                        <a class="btn primary" href="/">View site</a>
+                        <a class="btn ghost" href="https://github.com/dannyzombie/dannyxzombie.com/releases/tag/v4.0" target="_blank" rel="noopener">What changed</a>
+                    </div>
+                </div>
+            </li>
+            <li class="card">
+                <a class="shot" href="v3/"><img src="img/v3.jpg" alt="Version 3: blue title, video player with a playlist panel" width="640" height="400" loading="lazy"></a>
+                <div>
+                    <div class="meta"><span class="tag old">v3.0</span><span class="date">September 2024</span></div>
+                    <h2>Playlist panel</h2>
+                    <p>Starts a random video from my channel, with a playlist panel to pick another one. The first version on dannyxzombie.com.</p>
+                    <div class="built">Built with ChatGPT</div>
+                    <div class="actions">
+                        <a class="btn primary" href="v3/">View v3</a>
+                        <a class="btn ghost" href="https://github.com/dannyzombie/dannyxzombie.com/tree/v3.0" target="_blank" rel="noopener">Source code</a>
+                    </div>
+                </div>
+            </li>
+            <li class="card">
+                <a class="shot" href="v2/"><img src="img/v2.jpg" alt="Version 2: zombie-style title and a Join the Horde button" width="640" height="400" loading="lazy"></a>
+                <div>
+                    <div class="meta"><span class="tag old">v2.0</span><span class="date">September 2024</span></div>
+                    <h2>Join the Horde</h2>
+                    <p>Added the zombie-style title font, the "Join the Horde!" button that reveals my socials, and a full-screen video player.</p>
+                    <div class="built">Built with ChatGPT</div>
+                    <div class="actions">
+                        <a class="btn primary" href="v2/">View v2</a>
+                        <a class="btn ghost" href="https://github.com/dannyzombie/dannyxzombie.com/tree/v2.0" target="_blank" rel="noopener">Source code</a>
+                    </div>
+                </div>
+            </li>
+            <li class="card">
+                <a class="shot" href="v1/"><img src="img/v1.jpg" alt="Version 1: simple dark page with one YouTube video" width="640" height="400" loading="lazy"></a>
+                <div>
+                    <div class="meta"><span class="tag old">v1.0</span><span class="date">September 2024</span></div>
+                    <h2>Where it started</h2>
+                    <p>My first web page: a dark layout, one YouTube video and a link to my channel.</p>
+                    <div class="built">Built with ChatGPT</div>
+                    <div class="actions">
+                        <a class="btn primary" href="v1/">View v1</a>
+                        <a class="btn ghost" href="https://github.com/dannyzombie/dannyxzombie.com/tree/v1.0" target="_blank" rel="noopener">Source code</a>
+                    </div>
+                </div>
+            </li>
+        </ol>
+
+        <footer>Full history on <a href="https://github.com/dannyzombie/dannyxzombie.com" target="_blank" rel="noopener">GitHub</a></footer>
+    </main>
+</body>
+</html>

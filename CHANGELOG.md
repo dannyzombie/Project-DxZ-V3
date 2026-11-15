@@ -1,9 +1,21 @@
 # Changelog
 
 Every version of [dannyxzombie.com](https://dannyxzombie.com), newest first.
-Each version is tagged in git and has a matching [GitHub Release](https://github.com/dannyzombie/Project-DxZ-V3/releases), so any old version can be viewed or restored.
+Each version is tagged in git and has a matching [GitHub Release](https://github.com/dannyzombie/dannyxzombie.com/releases), so any old version can be viewed or restored. You can also click through them on the site at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/).
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
+
+## v4.1 (2026-11-15)
+
+All versions in one place.
+
+### Added
+- "All Versions" page at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) with a preview of every version, and a link to it in the footer
+- v1, v2 and v3 can be opened and used exactly as they were, with a small bar on top linking back to the current site
+
+### Changed
+- The old Project-DxZ-V1 and Project-DxZ-V2 repos were merged into this one with their full commit history, and the repo was renamed to **dannyxzombie.com**
+- Version tags `v1.0` and `v2.0` added for the two oldest versions
 
 ## v4.0 (2026-11-15)
 
@@ -37,7 +49,18 @@ The original V3, built with ChatGPT.
 - "Join the Horde!" button that reveals the social links
 - Custom domain dannyxzombie.com
 
-## Earlier versions
+## v2.0 (2024-09-21)
 
-- **V2:** [Project-DxZ-V2](https://github.com/dannyzombie/Project-DxZ-V2)
-- **V1:** [Project-DxZ-V1](https://github.com/dannyzombie/Project-DxZ-V1)
+- Zombie-style title font (Creepster) and a darker blue theme
+- "Join the Horde!" button that reveals the social links
+- Full-screen YouTube player
+
+Originally its own repo, Project-DxZ-V2. Now in `archive/v2/`.
+
+## v1.0 (2024-09-21)
+
+The first version.
+
+- Simple dark page with one YouTube video and a link to my channel
+
+Originally its own repo, Project-DxZ-V1. Now in `archive/v1/`.

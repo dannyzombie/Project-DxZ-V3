@@ -1,4 +1,4 @@
-# Project DxZ V3: dannyxzombie.com
+# dannyxzombie.com
 
 My personal website, live at **[dannyxzombie.com](https://dannyxzombie.com)**.
 
@@ -29,10 +29,13 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 | `og-image.png` | Preview image shown when the link is shared |
 | `CNAME` | Points GitHub Pages at dannyxzombie.com |
 | `CHANGELOG.md` | What changed in each version |
+| `archive/` | Every earlier version of the site (v1, v2, v3), viewable at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) |
 
 ## Versions
 
-Every release is tagged (`v3.0`, `v4.0`, ...) and listed on the [Releases page](https://github.com/dannyzombie/Project-DxZ-V3/releases), where you can browse or download any old version. See [CHANGELOG.md](CHANGELOG.md) for what changed in each one.
+Every release is tagged (`v1.0` to `v4.0` so far) and listed on the [Releases page](https://github.com/dannyzombie/dannyxzombie.com/releases), where you can browse or download any old version. You can also click through every version on the site itself at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/).
+
+This repo holds the full history of all versions. V1 and V2 started out as separate repos (Project-DxZ-V1 and Project-DxZ-V2) and were merged in, commits and all, under `archive/`. See [CHANGELOG.md](CHANGELOG.md) for what changed in each one.
 
 ## Run it locally
 
@@ -53,4 +56,4 @@ Then open the address it prints.
 
 ## How it was built
 
-I built this site with help from AI coding assistants: ChatGPT for the earlier versions, and Claude Code for the mobile layout, icons and portfolio work. Earlier versions of the site are in [Project-DxZ-V1](https://github.com/dannyzombie/Project-DxZ-V1) and [Project-DxZ-V2](https://github.com/dannyzombie/Project-DxZ-V2).
+I built this site with help from AI coding assistants: ChatGPT for the earlier versions, and Claude Code for the mobile layout, icons and portfolio work.
