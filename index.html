@@ -123,6 +123,46 @@
         .social-links img:hover {
             transform: scale(1.1);
         }
+
+        /* Phones and small tablets: stack the player above the playlist */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+                padding: 0 12px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 16px;
+            }
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .video-container {
+                flex: none;
+                width: 100%;
+                aspect-ratio: 16 / 9;
+            }
+            .playlist-panel {
+                flex: none;
+                max-height: 60vh;
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            .playlist-item img {
+                width: 96px;
+            }
+            .playlist-item span {
+                font-size: 0.9em;
+            }
+            .social-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .social-links img {
+                width: 40px;
+            }
+        }
     </style>
 </head>
 <body>
