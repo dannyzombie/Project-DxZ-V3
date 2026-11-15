@@ -1,58 +1,51 @@
-# Project-DxZ-V3
-My Gaming Website
-# Project DxZ V3 - YouTube Channel Website
+# Project DxZ V3: dannyxzombie.com
 
-## Overview
+My personal website, live at **[dannyxzombie.com](https://dannyxzombie.com)**.
 
-**Project DxZ V3** is a custom-built website designed to showcase my YouTube channel, [Danny Zombie's Channel](https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA), and dynamically display videos from my channel. This version of the project uses **HTML, JavaScript**, and the **YouTube Data API** to provide a seamless experience for visitors to view a random video from my channel or select one from a playlist panel. The video player is sized at 1080x1920, and the site features a clean, light background for better readability and visual appeal.
+Right now it's a gaming hub that plays videos from my [YouTube channel](https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA) and links to all my socials. It's growing into a full portfolio that shows everything I do and like to do.
 
 ## Features
 
-- **Random Video Player:** A video from my YouTube channel is randomly displayed upon page load.
-- **Playlist Panel:** Users can select other videos from a sidebar playlist panel.
-- **Mobile-Friendly:** The video player is optimized to fit 1080x1920 for mobile and desktop users.
-- **API Key Security:** The YouTube API key is managed securely using JavaScript without hardcoding it directly into the GitHub repository.
+- **Random video on load:** a random video from my channel plays when the page opens.
+- **Playlist panel:** pick any other video from the list.
+- **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal, with animated brand-colored buttons.
+- **Works on phones:** on small screens the player goes full-width and the playlist moves underneath.
+- **Link previews:** sharing the link on Discord, X, iMessage and similar apps shows a preview card, and the site has its own icon in browser tabs.
 
-## How It Was Built
+## How it works
 
-### 1. **YouTube Data API Integration**
-   - I wanted to use the YouTube Data API to fetch my channel’s videos dynamically. This allows for an up-to-date video list to be displayed at any time.
-   - During development, GPT-4 helped generate the code required to interact with the YouTube Data API, retrieve video data, and embed it in the HTML file. Specifically, the API key is passed securely without being exposed in the source code.
+- **One page, no build step:** plain HTML, CSS and JavaScript in `index.html`.
+- **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
+- **Icons:** inline SVG brand icons from [Simple Icons](https://simpleicons.org) (CC0), so there are no outside image requests.
+- **Hosting:** GitHub Pages with a custom domain (`CNAME`), behind Cloudflare.
 
-### 2. **Security Considerations**
-   - To ensure the safety of my YouTube API key, I used an approach that involved moving sensitive data to a **JavaScript environment** while keeping it out of the source files uploaded to GitHub.
-   - GPT-4 assisted in refactoring the code to **exclude hardcoded API keys** in the HTML, ensuring the website can be hosted publicly without security risks.
-   
-### 3. **GitHub Upload Process**
-   - Once the code was finalized, GPT-4 guided me through preparing it for upload to GitHub by ensuring no sensitive data would be included.
-   - I used an iterated version of the code, which avoided any direct inclusion of the YouTube API key, for the final deployment.
+## Files
 
-### 4. **Deployment**
-   - The site is now live on GitHub Pages at [Project DxZ V3](https://dannyzombie.github.io/Project-DxZ-V3/).
+| File | What it is |
+|---|---|
+| `index.html` | The whole site: layout, styles and scripts |
+| `favicon.svg`, `favicon-32.png` | Browser tab icon |
+| `apple-touch-icon.png` | Icon shown when the site is saved to a phone's home screen |
+| `og-image.png` | Preview image shown when the link is shared |
+| `CNAME` | Points GitHub Pages at dannyxzombie.com |
 
-## Tools and Technologies
+## Run it locally
 
-- **HTML5 & CSS3:** For building the structure and layout of the website.
-- **JavaScript (ES6+):** Used to implement the random video selection and interaction with the YouTube API.
-- **YouTube Data API v3:** For fetching my channel's video content and dynamically displaying it on the site.
-- **GitHub Pages:** For hosting the website.
-- **GPT-4 (ChatGPT):** Helped in generating and refining the code, improving API security, and providing guidance on the best practices for securely deploying the project on GitHub.
+Any static file server works. With Node.js installed:
 
-## How GPT Helped
+```bash
+npx serve .
+```
 
-Throughout the development process, I collaborated closely with GPT-4, which played a significant role in:
+Then open the address it prints.
 
-- **YouTube API Integration:** GPT generated JavaScript code to fetch video data, display it in a randomized player, and ensure it works seamlessly with the playlist feature.
-- **API Key Security:** GPT recommended techniques to manage the API key safely and helped in restructuring the code to keep sensitive information out of the public repository.
-- **Troubleshooting and Refactoring:** GPT helped debug issues, optimize the code for better performance, and ensure the design met my vision.
-- **Documentation:** GPT provided guidance on best practices for writing the README and documenting the development process clearly.
+## Roadmap
 
-## Future Improvements
+- [ ] Turn the site into a full portfolio with About, Skills, Projects, Videos and Contact sections
+- [ ] Modern restyle: cleaner fonts, smooth scrolling and animations
+- [ ] Pull my latest uploads automatically instead of a hand-picked list
+- [ ] Split the single file into separate HTML, CSS and JS
 
-- Implementing a back-end server to securely handle the YouTube API key.
-- Adding more advanced video filtering options for users to sort through content.
-- Expanding the design with more interactive features and better responsiveness for different screen sizes.
+## How it was built
 
-## Acknowledgments
-
-A special thanks to GPT-4 (ChatGPT) for providing detailed assistance throughout the coding process, from API integration to securing sensitive data and preparing the site for GitHub deployment.
+I built this site with help from AI coding assistants: ChatGPT for the earlier versions, and Claude Code for the mobile layout, icons and portfolio work. Earlier versions of the site are in [Project-DxZ-V1](https://github.com/dannyzombie/Project-DxZ-V1) and [Project-DxZ-V2](https://github.com/dannyzombie/Project-DxZ-V2).

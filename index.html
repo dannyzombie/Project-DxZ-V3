@@ -6,30 +6,120 @@
     <meta name="description" content="Welcome to Danny Zombie's Gaming Hub! Explore my favorite video games, watch gameplay videos, and join the gaming community.">
     <meta name="keywords" content="gaming, video games, Danny Zombie, game reviews, YouTube">
     <title>Danny Zombie's Gaming Hub</title>
+
+    <!-- Browser tab + phone home-screen icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="var(--bg)">
+
+    <!-- Link previews (Discord, iMessage, Facebook, X, etc.) -->
+    <link rel="canonical" href="https://dannyxzombie.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dannyxzombie.com/">
+    <meta property="og:site_name" content="Danny Zombie">
+    <meta property="og:title" content="Danny Zombie">
+    <meta property="og:description" content="Gamer, creator, and builder. Watch my gameplay videos and join the Horde.">
+    <meta property="og:image" content="https://dannyxzombie.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Danny Zombie: Gamer, Creator, Builder">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@DANNYXZOMBIE">
+    <meta name="twitter:image" content="https://dannyxzombie.com/og-image.png">
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
     <style>
+        /* ---------- Theme: colors pulled from the DannyXZombie avatar ---------- */
+        :root {
+            --bg: #0f0814;          /* near-black purple background */
+            --surface: #1a0d22;     /* header, footer, panels */
+            --surface-2: #241330;   /* video area */
+            --accent: #ff2fd2;      /* neon magenta (the name sign) */
+            --accent-2: #a84dff;    /* electric purple (headset + controller) */
+            --hot: #ff3b3b;         /* red glow (eyes + horns) */
+            --text-soft: #e6d9f0;
+            --muted: #b49fc4;
+        }
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1b1b32;
+            background:
+                radial-gradient(1000px 500px at 50% -10%, rgba(255, 47, 210, 0.14), transparent 70%),
+                var(--bg);
+            background-color: var(--bg);
             color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         header, footer {
-            background-color: #282846;
+            background-color: var(--surface);
             padding: 20px 0;
             width: 100%;
             text-align: center;
         }
+        header {
+            background: transparent;
+            padding: 36px 16px 8px;
+            box-sizing: border-box;
+        }
+        /* Avatar with a spinning neon ring behind it */
+        .avatar {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            padding: 4px;
+            isolation: isolate;
+        }
+        .avatar::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent), var(--accent-2), var(--hot), var(--accent));
+            animation: ring-spin 6s linear infinite;
+            z-index: -1;
+        }
+        .avatar::after {
+            content: "";
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 47, 210, 0.45), transparent 70%);
+            filter: blur(10px);
+            z-index: -2;
+        }
+        .avatar img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            box-sizing: border-box;
+            object-fit: cover;
+        }
+        @keyframes ring-spin { to { transform: rotate(1turn); } }
         h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: 3em;
+            font-weight: 400;
+            letter-spacing: 1px;
             font-family: 'Creepster', cursive;
-            color: #1e90ff;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+            color: #ffd6f6;
+            text-shadow:
+                0 0 6px var(--accent),
+                0 0 18px var(--accent),
+                0 0 36px rgba(255, 47, 210, 0.6);
+        }
+        .tagline {
+            margin: 8px 0 0;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.85em;
         }
         .description {
             margin: 20px 0;
@@ -44,25 +134,29 @@
             position: relative; /* Added to position the tooltip */
         }
         .button {
-            background-color: #1e90ff;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 5px;
+            border-radius: 999px;
             cursor: pointer;
-            font-size: 1.2em;
-            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.15em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 24px -8px rgba(255, 47, 210, 0.7);
+            transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s, filter 0.25s;
             margin-bottom: 10px; /* Space between button and links */
         }
         .button:hover {
-            background-color: #00bfff;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 12px 30px -8px rgba(255, 47, 210, 0.9);
         }
         .tooltip {
             display: none;
             position: absolute;
             top: -30px; /* Adjust the position */
-            background-color: #282846;
+            background-color: var(--surface);
             color: #fff;
             padding: 5px 10px;
             border-radius: 5px;
@@ -79,7 +173,7 @@
         }
         .video-container {
             flex: 3;
-            background-color: #2e2e53;
+            background-color: var(--surface-2);
             position: relative;
         }
         #player {
@@ -88,7 +182,7 @@
         }
         .playlist-panel {
             flex: 1;
-            background-color: #282846;
+            background-color: var(--surface);
             padding: 20px;
             overflow-y: auto;
             max-height: 80vh; /* Limit height of the panel */
@@ -105,7 +199,7 @@
             margin-right: 10px;
         }
         footer p {
-            color: #b3b3cc;
+            color: var(--muted);
             font-size: 0.9em;
         }
         /* ---------- Social icons ---------- */
@@ -120,7 +214,7 @@
             display: flex;
         }
         .social-links a {
-            --brand: #1e90ff;      /* hover fill, overridden per brand below */
+            --brand: var(--accent);      /* hover fill, overridden per brand below */
             --on-brand: #fff;      /* icon color while hovered */
             position: relative;
             display: grid;
@@ -128,7 +222,7 @@
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            color: #d9dcf0;
+            color: var(--text-soft);
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(6px);
@@ -154,7 +248,7 @@
             outline: none;
         }
         .social-links a:focus-visible {
-            box-shadow: 0 0 0 3px #1b1b32, 0 0 0 5px #1e90ff;
+            box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
         }
         /* Label that pops up under each icon on hover (desktop) */
         .social-links a::after {
@@ -165,7 +259,7 @@
             transform: translate(-50%, -4px);
             padding: 3px 8px;
             border-radius: 6px;
-            background: #282846;
+            background: var(--surface);
             color: #fff;
             font-size: 0.75em;
             white-space: nowrap;
@@ -183,19 +277,20 @@
         .social-links .ig { --brand: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); --glow: #d6249f; }
         .social-links .fb { --brand: #0866ff; }
         .social-links .tt { --brand: #000; --glow: #fe2c55; }
-        .social-links .md { --brand: #ffb800; --on-brand: #1b1b32; }
+        .social-links .md { --brand: #ffb800; --on-brand: var(--bg); }
         @keyframes social-in {
             from { opacity: 0; transform: translateY(10px) scale(0.9); }
             to   { opacity: 1; transform: none; }
         }
         @media (prefers-reduced-motion: reduce) {
             .social-links a { animation: none; transition: none; }
+            .avatar::before { animation: none; }
         }
 
         /* Phones and small tablets: stack the player above the playlist */
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.8em;
+                font-size: 2.4em;
                 padding: 0 12px;
             }
             .description {
@@ -246,7 +341,11 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to Danny Zombie's Gaming Hub</h1>
+        <div class="avatar">
+            <img src="images/avatar.jpg" alt="DannyXZombie avatar: a grinning devil-horned zombie gamer with a headset" width="400" height="400">
+        </div>
+        <h1>Danny Zombie</h1>
+        <p class="tagline">Gamer &middot; Creator &middot; Builder</p>
     </header>
     <div class="description">
         <p>My name is Danny Zombie and I love video games. <br>Explore my favorite video games, watch gameplay videos, and join the gaming community.</p>
