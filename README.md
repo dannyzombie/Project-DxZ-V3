@@ -17,7 +17,8 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 - **One page, no build step:** plain HTML, CSS and JavaScript in `index.html`.
 - **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
 - **Icons:** the YouTube, Twitch, X, Instagram, Facebook and TikTok icons are from [Simple Icons](https://simpleicons.org) (CC0) and the Medal icon is a simple custom drawing. All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
-- **Hosting:** GitHub Pages with a custom domain (`CNAME`), behind Cloudflare.
+- **Hosting:** [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/). Cloudflare deploys this repo automatically on every push to `main` (settings in `wrangler.jsonc`). `www` redirects to `dannyxzombie.com`.
+- **Security:** HTTPS only (HSTS), TLS 1.2+, DNSSEC, and security headers set in `_headers`. Files that aren't part of the website are kept off it by `.assetsignore`.
 
 ## Files
 
@@ -27,7 +28,10 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 | `favicon.svg`, `favicon-32.png` | Browser tab icon |
 | `apple-touch-icon.png` | Icon shown when the site is saved to a phone's home screen |
 | `og-image.png` | Preview image shown when the link is shared |
-| `CNAME` | Points GitHub Pages at dannyxzombie.com |
+| `wrangler.jsonc` | Cloudflare Worker settings (domain, deploy options) |
+| `_headers` | Security headers added to every page |
+| `.assetsignore` | Repo files that are not published to the website |
+| `CNAME` | Old GitHub Pages domain setting (GitHub Pages is the backup host) |
 | `CHANGELOG.md` | What changed in each version |
 | `archive/` | Every earlier version of the site (v1, v2, v3), viewable at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) |
 
