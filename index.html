@@ -175,10 +175,53 @@
             flex: 3;
             background-color: var(--surface-2);
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         #player {
             width: 100%;
-            height: 100%;
+            flex: 1;
+            min-height: 0;
+        }
+        /* ---------- Prev / now playing / next bar ---------- */
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--surface);
+            border-top: 1px solid rgba(255, 47, 210, 0.25);
+        }
+        .player-btn {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 44px; /* comfortable tap target */
+            padding: 0 18px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px -8px rgba(255, 47, 210, 0.7);
+            transition: transform 0.2s cubic-bezier(.2,.8,.2,1), filter 0.2s;
+        }
+        .player-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .player-btn:active { transform: translateY(0); }
+        .player-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .player-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        .now-playing {
+            flex: 1;
+            min-width: 0;
+            color: var(--text-soft);
+            font-size: 0.9em;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .playlist-panel {
             flex: 1;
@@ -191,8 +234,19 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            padding: 6px;
+            border-radius: 10px;
             cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
         }
+        .playlist-item:hover { background: var(--surface-2); }
+        .playlist-item.active {
+            background: var(--surface-2);
+            border-color: var(--accent);
+            box-shadow: 0 0 14px -4px var(--accent);
+        }
+        .playlist-item.active span { color: #ffd6f6; }
         .playlist-item img {
             width: 120px;
             height: auto;
@@ -304,8 +358,16 @@
             .video-container {
                 flex: none;
                 width: 100%;
+            }
+            #player {
+                flex: none;
+                height: auto;
                 aspect-ratio: 16 / 9;
             }
+            .player-controls { padding: 8px 10px; gap: 8px; }
+            .player-btn { padding: 0 14px; }
+            .player-btn .btn-text { display: none; } /* icons only on phones */
+            .player-btn svg { width: 22px; height: 22px; }
             .playlist-panel {
                 flex: none;
                 max-height: 60vh;
@@ -377,6 +439,17 @@
     <div class="container">
         <div class="video-container">
             <div id="player"></div>
+            <div class="player-controls">
+                <button class="player-btn" id="prev-btn" type="button" aria-label="Previous video">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM9.5 12 18 6v12z"/></svg>
+                    <span class="btn-text">Prev</span>
+                </button>
+                <div class="now-playing" id="now-playing" aria-live="polite"></div>
+                <button class="player-btn" id="next-btn" type="button" aria-label="Next video">
+                    <span class="btn-text">Next</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+                </button>
+            </div>
         </div>
         <div class="playlist-panel" id="playlist-panel"></div>
     </div>
@@ -436,7 +509,9 @@
         ];
         
         let player;
-        
+        let currentIndex = 0;      // position in `videos` of what's playing now
+        let unmutedOnce = false;   // so the 50% volume is only applied the first time
+
         // Load YouTube API
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -449,45 +524,87 @@
         }
 
         function randomizeAndLoadVideo() {
-            const randomIndex = Math.floor(Math.random() * videos.length);
-            const videoId = videos[randomIndex].id;
+            currentIndex = Math.floor(Math.random() * videos.length);
 
             player = new YT.Player('player', {
                 width: '100%',
                 height: '100%',
-                videoId: videoId,
+                videoId: videos[currentIndex].id,
                 playerVars: {
                     autoplay: 1,
                     controls: 1,
-                    mute: 1,
-                    rel: 0
+                    mute: 1,          // browsers only allow autoplay when muted
+                    rel: 0,
+                    playsinline: 1    // play inside the page on iPhones, not fullscreen
                 },
                 events: {
-                    onReady: (event) => {
-                        event.target.setVolume(30); // Set volume to 30%
-                    }
+                    onReady: () => markActive(false),
+                    onStateChange: onPlayerStateChange
                 }
             });
+        }
+
+        function onPlayerStateChange(event) {
+            // When a video finishes, roll straight into the next one
+            if (event.data === YT.PlayerState.ENDED) {
+                step(1);
+            }
+            // The first time the viewer unmutes, start them at 50% instead of full blast
+            if (event.data === YT.PlayerState.PLAYING && !unmutedOnce && !player.isMuted()) {
+                unmutedOnce = true;
+                player.setVolume(50);
+            }
+        }
+
+        /**
+         * Decide which video plays after `current`.
+         * direction is +1 (Next button / video ended) or -1 (Prev button).
+         * Must return a valid index into `videos` (0 to videos.length - 1).
+         */
+        function pickNextIndex(current, direction) {
+            // List order with wrap-around. Adding videos.length first keeps
+            // the result positive when going back from video 0.
+            return (current + direction + videos.length) % videos.length;
+        }
+
+        function step(direction) {
+            playIndex(pickNextIndex(currentIndex, direction));
+        }
+
+        function playIndex(index) {
+            currentIndex = index;
+            player.loadVideoById(videos[index].id);
+            markActive(true);
+        }
+
+        // Highlight the playing video in the panel and show its title under the player
+        function markActive(scroll) {
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                const isActive = i === currentIndex;
+                item.classList.toggle('active', isActive);
+                item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                if (isActive && scroll) item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            });
+            document.getElementById('now-playing').textContent = videos[currentIndex].title;
         }
 
         function displayPlaylist() {
             const playlistPanel = document.getElementById('playlist-panel');
             playlistPanel.innerHTML = ''; // Clear the panel
-            videos.forEach(video => {
+            videos.forEach((video, i) => {
                 const item = document.createElement('div');
                 item.className = 'playlist-item';
-                item.onclick = () => loadVideo(video.id);
+                item.onclick = () => playIndex(i);
                 item.innerHTML = `
-                    <img src="https://img.youtube.com/vi/${video.id}/default.jpg" alt="Video Thumbnail">
+                    <img src="https://img.youtube.com/vi/${video.id}/default.jpg" alt="" loading="lazy">
                     <span>${video.title}</span>
                 `;
                 playlistPanel.appendChild(item);
             });
         }
 
-        function loadVideo(videoId) {
-            player.loadVideoById(videoId);
-        }
+        document.getElementById('prev-btn').addEventListener('click', () => step(-1));
+        document.getElementById('next-btn').addEventListener('click', () => step(1));
 
         function toggleSocialLinks() {
             const socialLinks = document.getElementById('social-links');
