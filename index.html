@@ -213,6 +213,29 @@
         .player-btn:active { transform: translateY(0); }
         .player-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
         .player-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        /* Shuffle toggle: outlined when off, lit up in neon when on */
+        .shuffle-btn {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--muted);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .shuffle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .shuffle-btn:hover { transform: translateY(-2px); }
+        .shuffle-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .shuffle-btn[aria-pressed="true"] {
+            color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 14px -2px var(--accent);
+        }
         .now-playing {
             flex: 1;
             min-width: 0;
@@ -449,6 +472,9 @@
                     <span class="btn-text">Next</span>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
                 </button>
+                <button class="shuffle-btn" id="shuffle-btn" type="button" aria-label="Shuffle" aria-pressed="true" title="Shuffle is on">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 9.2 5.4 4 4 5.4l5.2 5.2 1.4-1.4zM14.5 4l2 2L4 18.6 5.4 20 18 7.5l2 2V4h-5.5zm.3 9.4-1.4 1.4 3.1 3.1L14.5 20H20v-5.5l-2 2-3.2-3.1z"/></svg>
+                </button>
             </div>
         </div>
         <div class="playlist-panel" id="playlist-panel"></div>
@@ -512,6 +538,66 @@
         let currentIndex = 0;      // position in `videos` of what's playing now
         let unmutedOnce = false;   // so the 50% volume is only applied the first time
 
+        // ---------- Play order: shuffle deck or list order, remembered across reloads ----------
+        const STORE_KEY = 'dxz-player';
+        let shuffleOn = true;      // default for first-time visitors
+        let order = [];            // shuffled positions in `videos`; each appears exactly once
+        let deckPos = 0;           // where we are in `order`
+
+        // Fisher–Yates: every arrangement is equally likely
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Fresh deck that never starts with `avoid` (so a new round can't repeat the last video)
+        function newDeck(avoid) {
+            const deck = shuffle(videos.map((_, i) => i));
+            if (deck[0] === avoid && deck.length > 1) [deck[0], deck[1]] = [deck[1], deck[0]];
+            return deck;
+        }
+
+        // Saved as video IDs, not positions, so adding/removing videos later can't scramble it.
+        // Wrapped in try/catch: storage can be blocked (private mode, strict privacy settings).
+        function saveState() {
+            try {
+                localStorage.setItem(STORE_KEY, JSON.stringify({
+                    shuffle: shuffleOn,
+                    order: order.map(i => videos[i].id),
+                    last: videos[currentIndex].id
+                }));
+            } catch (e) { /* not saved; the player still works */ }
+        }
+
+        function loadState() {
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) {}
+            const indexOfId = id => videos.findIndex(v => v.id === id);
+
+            if (saved && typeof saved.shuffle === 'boolean') shuffleOn = saved.shuffle;
+            const last = saved ? indexOfId(saved.last) : -1;
+
+            // Reuse the saved deck only if it still matches the current video list exactly
+            const savedOrder = saved && Array.isArray(saved.order) ? saved.order.map(indexOfId) : [];
+            const deckValid = savedOrder.length === videos.length &&
+                              new Set(savedOrder).size === videos.length && !savedOrder.includes(-1);
+
+            order = deckValid ? savedOrder : newDeck(last);
+
+            if (last === -1) {
+                // First visit: start at the top of the deck (or anywhere, in list mode)
+                currentIndex = shuffleOn ? order[0] : Math.floor(Math.random() * videos.length);
+            } else {
+                // Returning: start on the video AFTER the one played last time, never the same one
+                currentIndex = pickNextIndex(last, 1);
+            }
+            deckPos = order.indexOf(currentIndex);
+            saveState();
+        }
+
         // Load YouTube API
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -524,7 +610,8 @@
         }
 
         function randomizeAndLoadVideo() {
-            currentIndex = Math.floor(Math.random() * videos.length);
+            loadState();   // picks currentIndex: next in the saved deck, or a fresh start
+            setShuffle(shuffleOn);   // make the toggle match the saved setting
 
             player = new YT.Player('player', {
                 width: '100%',
@@ -562,9 +649,20 @@
          * Must return a valid index into `videos` (0 to videos.length - 1).
          */
         function pickNextIndex(current, direction) {
-            // List order with wrap-around. Adding videos.length first keeps
-            // the result positive when going back from video 0.
-            return (current + direction + videos.length) % videos.length;
+            if (!shuffleOn) {
+                // List order with wrap-around. Adding videos.length first keeps
+                // the result positive when going back from video 0.
+                return (current + direction + videos.length) % videos.length;
+            }
+            // Shuffle: step through the deck. Prev really goes back; no repeats until all are played.
+            let pos = order.indexOf(current) + direction;
+            if (pos >= order.length) {          // whole deck played: reshuffle for a new round
+                order = newDeck(current);
+                pos = 0;
+            }
+            if (pos < 0) pos = order.length - 1;
+            deckPos = pos;
+            return order[pos];
         }
 
         function step(direction) {
@@ -573,8 +671,18 @@
 
         function playIndex(index) {
             currentIndex = index;
+            deckPos = order.indexOf(index);  // playlist clicks: carry on through the deck from here
             player.loadVideoById(videos[index].id);
             markActive(true);
+            saveState();
+        }
+
+        function setShuffle(on) {
+            shuffleOn = on;
+            const btn = document.getElementById('shuffle-btn');
+            btn.setAttribute('aria-pressed', on);
+            btn.title = on ? 'Shuffle is on' : 'Shuffle is off (playing in list order)';
+            saveState();
         }
 
         // Highlight the playing video in the panel and show its title under the player
@@ -605,6 +713,7 @@
 
         document.getElementById('prev-btn').addEventListener('click', () => step(-1));
         document.getElementById('next-btn').addEventListener('click', () => step(1));
+        document.getElementById('shuffle-btn').addEventListener('click', () => setShuffle(!shuffleOn));
 
         function toggleSocialLinks() {
             const socialLinks = document.getElementById('social-links');
