@@ -1,0 +1,8 @@
+# Security headers for every page (read by Cloudflare, not published as a file).
+# Kept deliberately safe: nothing here limits YouTube, fonts or images.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'

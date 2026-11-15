@@ -5,6 +5,17 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v4.5 (2026-11-15)
+
+### Changed
+- The site is now served by Cloudflare Workers (deployed from this repo on every push) instead of GitHub Pages
+- www.dannyxzombie.com redirects to dannyxzombie.com, so there is one address
+
+### Security
+- Security headers on every page (`_headers`): blocks other sites from framing the pages, limits what the referrer reveals, and turns off camera, microphone and location access
+- Repo files that aren't part of the website (README, changelog, license, config) are no longer published (`.assetsignore`)
+- Removed the extra public copy on workers.dev
+
 ## v4.4 (2026-11-15)
 
 ### Fixed

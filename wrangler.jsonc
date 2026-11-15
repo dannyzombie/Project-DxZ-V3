@@ -1,0 +1,22 @@
+// Cloudflare Worker settings for dannyxzombie.com.
+// Cloudflare "Workers Builds" deploys this repo on every push to main.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dannyxzombie",
+  "compatibility_date": "2026-11-13",
+  "observability": {
+    "enabled": true
+  },
+  // The whole repo folder is the website; .assetsignore lists files that must NOT be published.
+  "assets": {
+    "directory": "."
+  },
+  // Serve only on the real domain. These routes replace any routes set in the dashboard on each deploy.
+  // www.dannyxzombie.com is redirected to dannyxzombie.com by a Cloudflare redirect rule.
+  "routes": [
+    { "pattern": "dannyxzombie.com/*", "zone_name": "dannyxzombie.com" }
+  ],
+  // No extra public copies on *.workers.dev
+  "workers_dev": false,
+  "preview_urls": false
+}

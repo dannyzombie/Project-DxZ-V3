@@ -1,0 +1,23 @@
+# Files in this repo that are NOT part of the website.
+# Cloudflare skips these when publishing (same format as .gitignore).
+
+# Tool and config files
+.git
+.gitignore
+.gitattributes
+.assetsignore
+.claude
+.wrangler
+.dev.vars*
+.env*
+node_modules
+wrangler.jsonc
+wrangler.toml
+package.json
+package-lock.json
+
+# Repo documents (they live on GitHub, not on the website)
+*.md
+LICENSE
+CNAME
+archive/*/LICENSE
