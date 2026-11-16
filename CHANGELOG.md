@@ -10,6 +10,14 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 ### Added
 - Google Search Console verification file (`google6614dbcbd559b5ef.html`). It has to stay in the repo or Google stops treating the site as verified
 
+### Fixed
+- 3DS video card: clicking it now shows a spinning "loading" ring right away, instead of nothing for up to 4 seconds
+- 3DS video card: keyboard focus moves into the video when it loads, instead of jumping back to the top of the page
+- 3DS video card and playlist: Ctrl-click (Cmd-click on Mac) and Shift-click open the video in a new tab or window, like any normal link
+- Videos: if YouTube is blocked (ad blocker, network filter), the player spot now says so and links to my channel, instead of staying an empty box. The page notices a blocked YouTube right away, and waits up to 6 seconds if it's just slow
+- Playlist items are real links now, so they work with the keyboard and still open on YouTube when the player can't load
+- Contact: the social buttons show a clear white ring when you Tab to them (it used to be very faint)
+
 ## v5.3 (2026-11-16)
 
 ### Added

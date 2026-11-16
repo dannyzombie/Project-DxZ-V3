@@ -149,13 +149,50 @@ function loadState() {
 // Load the player and playlist once the YouTube API (js/yt-api.js) is ready.
 // Safe to call more than once: only the first call does anything.
 let playerStarted = false;
+const PLAYER_WAIT_MS = 6000;   // how long to wait before saying YouTube isn't loading
 function startPlayer() {
     if (playerStarted) return;
     playerStarted = true;
-    Promise.all([dxzYT.ready, loadFreshVideos()]).then(() => {
+    const freshLoaded = loadFreshVideos();
+
+    // If YouTube is blocked or very slow, don't leave a blank box: explain, and
+    // fill the playlist with plain links that open each video on YouTube.
+    dxzYT.whenReady(PLAYER_WAIT_MS).then(status => {
+        if (status === 'ready') return;
+        freshLoaded.then(() => {
+            if (player) return;   // YouTube made it in the meantime
+            showPlayerFallback(status);
+            displayPlaylist();
+        });
+    });
+
+    // Whenever YouTube does load (even late), the real player takes over
+    Promise.all([dxzYT.ready, freshLoaded]).then(() => {
         randomizeAndLoadVideo();
         displayPlaylist();
     });
+}
+
+// Message shown in the player's spot when YouTube can't load
+function showPlayerFallback(status) {
+    const box = document.getElementById('player');
+    if (!box) return;   // the real player already replaced it
+    box.className = 'player-fallback';
+    box.textContent = '';
+    box.closest('.video-container').classList.add('is-fallback');   // hides Prev/Next: they need the player
+    const msg = document.createElement('p');
+    msg.textContent = status === 'blocked'
+        ? "The video player is blocked here (often an ad blocker or a network filter)."
+        : "The video player is taking a long time to load.";
+    const link = document.createElement('a');
+    link.href = 'https://www.youtube.com/@dannyzombie/videos';
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = 'Watch my videos on YouTube';
+    const hint = document.createElement('p');
+    hint.className = 'player-fallback-hint';
+    hint.textContent = 'Or pick one from the list. It opens on YouTube.';
+    box.append(msg, link, hint);
 }
 
 // Start the main player only when the Videos section scrolls into view, so a
@@ -179,6 +216,8 @@ startWhenVisible();
 function randomizeAndLoadVideo() {
     loadState();   // picks currentIndex: next in the saved deck, or a fresh start
     setShuffle(shuffleOn);   // make the toggle match the saved setting
+    document.querySelector('.video-container').classList.remove('is-fallback');   // YouTube arrived late
+    document.getElementById('player').className = '';
 
     player = new YT.Player('player', {
         width: '100%',
@@ -272,9 +311,18 @@ function displayPlaylist() {
     const playlistPanel = document.getElementById('playlist-panel');
     playlistPanel.innerHTML = ''; // Clear the panel
     videos.forEach((video, i) => {
-        const item = document.createElement('div');
+        // A real link: works with the keyboard, and if the player never loads
+        // (YouTube blocked) it still opens the video on YouTube.
+        const item = document.createElement('a');
         item.className = 'playlist-item';
-        item.onclick = () => playIndex(i);
+        item.href = `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`;
+        item.target = '_blank';
+        item.rel = 'noopener';
+        item.addEventListener('click', event => {
+            if (!playerReady || opensElsewhere(event)) return;   // let the link do its normal thing
+            event.preventDefault();
+            playIndex(i);
+        });
         // Built with createElement + textContent, not innerHTML: titles now come from
         // YouTube, and a title containing < or & must show as text, not become HTML.
         const img = document.createElement('img');

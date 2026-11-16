@@ -16,25 +16,36 @@ const YT_WAIT_MS = 4000;
 function loadCardVideo(facade) {
     if (facade.dataset.loading) return;   // already loading: ignore extra clicks
     facade.dataset.loading = 'true';
+    // Show a spinner and say "Loading" so the click visibly did something
+    facade.classList.add('is-loading');
+    facade.setAttribute('aria-busy', 'true');
 
-    const timeout = new Promise(resolve => setTimeout(() => resolve('timeout'), YT_WAIT_MS));
-    Promise.race([dxzYT.ready.then(() => 'ready'), timeout]).then(result => {
-        if (result === 'timeout') {
-            location.href = facade.href;
+    dxzYT.whenReady(YT_WAIT_MS).then(result => {
+        if (result !== 'ready') {
+            location.href = facade.href;   // blocked or too slow: open it on YouTube
             return;
         }
         const box = document.createElement('div');
         box.className = 'card-video';
+        box.tabIndex = -1;   // can hold focus, but isn't an extra Tab stop
         const target = document.createElement('div');
         box.appendChild(target);
+        const hadFocus = document.activeElement === facade;
         facade.replaceWith(box);
+        // The focused link was just removed. Without this the browser drops
+        // keyboard focus back to the top of the page.
+        if (hadFocus) box.focus();
         new YT.Player(target, {
             width: '100%',
             height: '100%',
             videoId: facade.dataset.videoId,
             playerVars: { autoplay: 1, rel: 0, playsinline: 1 },   // not muted: the visitor clicked
             events: {
-                onReady: e => dxzYT.exclusive(e.target),
+                onReady: e => {
+                    dxzYT.exclusive(e.target);
+                    // Hand focus on to the player itself, unless the visitor moved on
+                    if (document.activeElement === box) e.target.getIframe().focus();
+                },
                 onStateChange: e => dxzYT.notify(e.target, e.data)
             }
         });
@@ -48,6 +59,8 @@ window.addEventListener('pageshow', event => {
     if (!event.persisted) return;
     document.querySelectorAll('.video-facade[data-loading]').forEach(facade => {
         delete facade.dataset.loading;
+        facade.classList.remove('is-loading');
+        facade.removeAttribute('aria-busy');
     });
 });
 
@@ -80,6 +93,7 @@ document.querySelectorAll('.code-view').forEach(box => {
 
 document.querySelectorAll('.video-facade').forEach(facade => {
     facade.addEventListener('click', event => {
+        if (opensElsewhere(event)) return;   // Ctrl-click etc.: let the browser open a new tab
         event.preventDefault();
         loadCardVideo(facade);
     });
