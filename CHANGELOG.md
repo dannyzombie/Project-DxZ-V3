@@ -5,6 +5,11 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## Unreleased
+
+### Added
+- Google Search Console verification file (`google6614dbcbd559b5ef.html`). It has to stay in the repo or Google stops treating the site as verified
+
 ## v5.3 (2026-11-16)
 
 ### Added
