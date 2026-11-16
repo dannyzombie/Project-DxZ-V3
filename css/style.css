@@ -554,6 +554,25 @@ main { width: 100%; }
 .learning-list progress::-webkit-progress-value { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
 .learning-list progress::-moz-progress-bar { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
 
+/* Learning trail: dated list with a neon line and dots down the left side */
+.sub-heading { margin: 32px 0 6px; font-size: 1.25em; color: #ffd6f6; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid rgba(255, 47, 210, 0.45); }
+.timeline li { position: relative; padding: 0 0 18px 4px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -29px;              /* centers the 12px dot on the 2px line: -(22px padding + 4px + 6px half-dot) + 3px */
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 10px rgba(255, 47, 210, 0.8);
+}
+.timeline time { display: block; font-weight: 700; color: #ffd6f6; }
+.timeline p { margin: 2px 0 0; }
+
 /* Contact: the 7 socials, always visible, with text labels */
 .social-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .social-list a {

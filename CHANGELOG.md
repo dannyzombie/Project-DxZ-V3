@@ -5,6 +5,12 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v5.3 (2026-11-16)
+
+### Added
+- "My learning trail" in Now Learning: a dated timeline from my first code on Codecademy (May 2017) to rebuilding this site in 2026. It only lists courses I actually made progress in
+- About rewritten in my own words: how I got into fixing electronics, learning to code since 2017, using AI to learn faster (the right way), ¡Se habla español!, and my pets
+
 ## v5.2 (2026-11-15)
 
 ### Added
