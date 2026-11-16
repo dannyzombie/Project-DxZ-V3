@@ -11,6 +11,9 @@
 .dev.vars*
 .env*
 node_modules
+# Local-only planning docs and build scratch files (never part of the website)
+docs
+.superpowers
 wrangler.jsonc
 wrangler.toml
 package.json
