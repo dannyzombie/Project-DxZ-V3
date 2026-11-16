@@ -497,6 +497,36 @@ main { width: 100%; }
 .card-video { aspect-ratio: 16 / 9; }
 .card-video iframe { display: block; width: 100%; height: 100%; }
 
+/* Code projects: a live page in a frame, plus "View the code" boxes */
+.code-preview { background: #fff; height: 360px; }
+.code-preview iframe { display: block; width: 100%; height: 100%; border: 0; }
+/* minmax(0, 1fr): the column can't grow to fit long code lines, so each code box scrolls sideways instead */
+.code-files { padding: 0 18px 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.code-view {
+    background: var(--bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+.code-view summary {
+    cursor: pointer;
+    padding: 10px 14px;
+    font-weight: 700;
+    color: #ffd6f6;
+}
+.code-view summary:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 10px; }
+.code-view pre {
+    margin: 0;
+    max-height: 420px;
+    overflow: auto;
+    padding: 12px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font: 0.85em/1.5 Consolas, 'Courier New', monospace;
+    color: var(--text-soft);
+    tab-size: 2;
+}
+.code-view pre:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.card p code { font-size: 0.95em; color: #ffd6f6; }
+
 /* Now Learning */
 .learning-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .learning-list li {
@@ -550,6 +580,10 @@ main { width: 100%; }
 @media (min-width: 769px) {
     /* Project with a video: picture on the left, text on the right */
     .card-media { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; }
+    /* Code project: live page on the left, text on the right, code boxes full width below */
+    /* minmax(0, …): let columns shrink below long code lines (the code box scrolls instead) */
+    .card-code { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; }
+    .code-files { grid-column: 1 / -1; padding-top: 18px; }
 }
 
 /* Narrow playlist column (tablets and small laptops): put each thumbnail above its

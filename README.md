@@ -8,6 +8,7 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 
 - **Portfolio sections:** Projects, Now Learning, About, Videos and Contact, with a menu that jumps to each one.
 - **Project videos that load on click:** the 3DS project card shows a thumbnail and only loads the YouTube player when clicked. Only one video plays at a time.
+- **Code project cards:** my freeCodeCamp projects run live inside their cards, with "View the code" boxes that show the source.
 - **Video player with shuffle:** videos play back to back in a shuffled order with no repeats, with Prev/Next buttons and a toggle to switch to playlist order. It starts (muted) when you scroll down to it. Reloading the page carries on with the next video instead of starting over.
 - **Playlist panel:** pick any video from the list. The one playing is highlighted.
 - **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal behind the "Join the Horde!" button, with animated brand-colored buttons. The Contact section lists those plus GitHub and Xbox.
@@ -31,8 +32,9 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 | `js/yt-api.js` | Loads YouTube's player code once and makes sure only one video plays at a time |
 | `js/player.js` | The main video player: shuffle, Prev/Next, playlist, start on scroll, latest uploads |
 | `worker/index.js` | Cloudflare Worker script: answers `/api/videos` with my latest YouTube uploads (not published as a file) |
-| `js/site.js` | The "Join the Horde!" button and the click-to-load project video |
+| `js/site.js` | The "Join the Horde!" button, the click-to-load project video and the "View the code" boxes |
 | `images/` | My avatar and the 3DS project thumbnail |
+| `projects/` | My freeCodeCamp practice pages (Cafe Menu, Cat Photo App), shown live in the project cards |
 | `robots.txt`, `sitemap.xml` | Tell search engines what pages the site has |
 | `favicon.svg`, `favicon-32.png` | Browser tab icon |
 | `apple-touch-icon.png` | Icon shown when the site is saved to a phone's home screen |

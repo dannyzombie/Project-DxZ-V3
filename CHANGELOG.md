@@ -5,6 +5,16 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v5.2 (2026-11-15)
+
+### Added
+- Two code project cards from my freeCodeCamp lessons (2024): **Cafe Menu** and **Cat Photo App**. Each one shows the real page live inside the card, a link to open it full size, and "View the code" boxes with my source. On the live site the code loads from GitHub, because Cloudflare adds its own script to every HTML page it serves
+- The practice pages live in `projects/` and are kept out of Google results (`X-Robots-Tag: noindex` in `_headers`)
+
+### Fixed
+- Cat Photo App: I fixed my own 2024 bugs. An unclosed `<meta>` tag put stray "CatPhotoApp" text at the top of the page and hid the title. I also added the missing `<!DOCTYPE html>`, charset and viewport lines
+- Cafe Menu: the stylesheet was saved as `CafeMenu.css`, but the page asks for `styles.css`, so the page had no styling outside freeCodeCamp. It's now saved under the right name
+
 ## v5.1 (2026-11-15)
 
 ### Added

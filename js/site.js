@@ -51,6 +51,33 @@ window.addEventListener('pageshow', event => {
     });
 });
 
+// "View the code" boxes: load a project's source file the first time the box is
+// opened. On the live site the file comes from GitHub, because Cloudflare adds its
+// own script to every HTML page it serves, and that would show up in the code box.
+// Anywhere else (local preview) the file comes straight from this site.
+const CODE_BASE = location.hostname === 'dannyxzombie.com'
+    ? 'https://raw.githubusercontent.com/dannyzombie/dannyxzombie.com/main/'
+    : '/';
+
+document.querySelectorAll('.code-view').forEach(box => {
+    box.addEventListener('toggle', () => {
+        if (!box.open || box.dataset.loaded) return;
+        box.dataset.loaded = 'true';
+        const code = box.querySelector('code');
+        code.textContent = 'Loading…';
+        fetch(CODE_BASE + box.dataset.src)
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                return response.text();
+            })
+            .then(text => { code.textContent = text; })   // plain text: the code is shown, never run
+            .catch(() => {
+                delete box.dataset.loaded;   // let the next open try again
+                code.textContent = "Couldn't load the code. Use \"Source on GitHub\" instead.";
+            });
+    });
+});
+
 document.querySelectorAll('.video-facade').forEach(facade => {
     facade.addEventListener('click', event => {
         event.preventDefault();

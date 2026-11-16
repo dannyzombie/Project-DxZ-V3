@@ -6,3 +6,8 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Content-Security-Policy: frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'
+
+# freeCodeCamp practice pages: shown inside project cards, but kept out of
+# Google results (they're course exercises, not pages of their own)
+/projects/*
+  X-Robots-Tag: noindex
