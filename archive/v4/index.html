@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Danny Zombie's Gaming Hub! Explore my favorite video games, watch gameplay videos, and join the gaming community.">
+    <meta name="keywords" content="gaming, video games, Danny Zombie, game reviews, YouTube">
+    <title>Danny Zombie's Gaming Hub</title>
+
+    <!-- Browser tab + phone home-screen icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="var(--bg)">
+
+    <!-- Link previews (Discord, iMessage, Facebook, X, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dannyxzombie.com/">
+    <meta property="og:site_name" content="Danny Zombie">
+    <meta property="og:title" content="Danny Zombie">
+    <meta property="og:description" content="Gamer, creator, and builder. Watch my gameplay videos and join the Horde.">
+    <meta property="og:image" content="https://dannyxzombie.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Danny Zombie: Gamer, Creator, Builder">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@DANNYXZOMBIE">
+    <meta name="twitter:image" content="https://dannyxzombie.com/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- Theme: colors pulled from the DannyXZombie avatar ---------- */
+        :root {
+            --bg: #0f0814;          /* near-black purple background */
+            --surface: #1a0d22;     /* header, footer, panels */
+            --surface-2: #241330;   /* video area */
+            --accent: #ff2fd2;      /* neon magenta (the name sign) */
+            --accent-2: #a84dff;    /* electric purple (headset + controller) */
+            --hot: #ff3b3b;         /* red glow (eyes + horns) */
+            --text-soft: #e6d9f0;
+            --muted: #b49fc4;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background:
+                radial-gradient(1000px 500px at 50% -10%, rgba(255, 47, 210, 0.14), transparent 70%),
+                var(--bg);
+            background-color: var(--bg);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header, footer {
+            background-color: var(--surface);
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+        }
+        header {
+            background: transparent;
+            padding: 36px 16px 8px;
+            box-sizing: border-box;
+        }
+        /* Avatar with a spinning neon ring behind it */
+        .avatar {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            padding: 4px;
+            isolation: isolate;
+        }
+        .avatar::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent), var(--accent-2), var(--hot), var(--accent));
+            animation: ring-spin 6s linear infinite;
+            z-index: -1;
+        }
+        .avatar::after {
+            content: "";
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 47, 210, 0.45), transparent 70%);
+            filter: blur(10px);
+            z-index: -2;
+        }
+        .avatar img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            box-sizing: border-box;
+            object-fit: cover;
+        }
+        @keyframes ring-spin { to { transform: rotate(1turn); } }
+        h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-family: 'Creepster', cursive;
+            color: #ffd6f6;
+            text-shadow:
+                0 0 6px var(--accent),
+                0 0 18px var(--accent),
+                0 0 36px rgba(255, 47, 210, 0.6);
+        }
+        .tagline {
+            margin: 8px 0 0;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+        .description {
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative; /* Added to position the tooltip */
+        }
+        .button {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.15em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 24px -8px rgba(255, 47, 210, 0.7);
+            transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s, filter 0.25s;
+            margin-bottom: 10px; /* Space between button and links */
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 12px 30px -8px rgba(255, 47, 210, 0.9);
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: -30px; /* Adjust the position */
+            background-color: var(--surface);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            z-index: 1; /* Ensure it's above other elements */
+        }
+        .social-container:hover .tooltip {
+            display: block; /* Show the tooltip on hover */
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 220px); /* Adjust based on header/footer height */
+        }
+        .video-container {
+            flex: 3;
+            min-width: 0; /* without this, a long "now playing" title widens this column */
+            background-color: var(--surface-2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        #player {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+        }
+        /* ---------- Prev / now playing / next bar ---------- */
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--surface);
+            border-top: 1px solid rgba(255, 47, 210, 0.25);
+        }
+        .player-btn {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 44px; /* comfortable tap target */
+            padding: 0 18px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px -8px rgba(255, 47, 210, 0.7);
+            transition: transform 0.2s cubic-bezier(.2,.8,.2,1), filter 0.2s;
+        }
+        .player-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .player-btn:active { transform: translateY(0); }
+        .player-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .player-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        /* Shuffle toggle: outlined when off, lit up in neon when on */
+        .shuffle-btn {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--muted);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .shuffle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .shuffle-btn:hover { transform: translateY(-2px); }
+        .shuffle-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .shuffle-btn[aria-pressed="true"] {
+            color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 14px -2px var(--accent);
+        }
+        .now-playing {
+            flex: 1;
+            min-width: 0;
+            color: var(--text-soft);
+            font-size: 0.9em;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-panel {
+            flex: 1;
+            min-width: 0;
+            background-color: var(--surface);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh; /* Limit height of the panel */
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .playlist-item:hover { background: var(--surface-2); }
+        .playlist-item.active {
+            background: var(--surface-2);
+            border-color: var(--accent);
+            box-shadow: 0 0 14px -4px var(--accent);
+        }
+        .playlist-item.active span { color: #ffd6f6; }
+        .playlist-item img {
+            flex: none; /* keep thumbnails full size */
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .playlist-item span {
+            min-width: 0;
+            overflow-wrap: anywhere; /* long hashtags wrap instead of overflowing */
+        }
+        footer p {
+            color: var(--muted);
+            font-size: 0.9em;
+        }
+        .footer-link { color: var(--muted); text-decoration-color: rgba(255, 47, 210, 0.5); text-underline-offset: 3px; }
+        .footer-link:hover { color: var(--accent); }
+        /* ---------- Social icons ---------- */
+        .social-links {
+            display: none;
+            flex-direction: row;
+            gap: 14px;
+            margin-top: 12px;
+            padding: 4px;
+        }
+        .social-links.open {
+            display: flex;
+        }
+        .social-links a {
+            --brand: var(--accent);      /* hover fill, overridden per brand below */
+            --on-brand: #fff;      /* icon color while hovered */
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            color: var(--text-soft);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transition: transform 0.25s cubic-bezier(.2,.8,.2,1),
+                        background 0.25s, color 0.25s, box-shadow 0.25s, border-color 0.25s;
+            /* "backwards" = hidden during the stagger delay, then hands transform back to :hover */
+            animation: social-in 0.45s cubic-bezier(.2,.8,.2,1) backwards;
+            animation-delay: calc(var(--i) * 45ms);
+        }
+        .social-links svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        .social-links a:hover,
+        .social-links a:focus-visible {
+            transform: translateY(-4px);
+            color: var(--on-brand);
+            background: var(--brand);
+            border-color: transparent;
+            box-shadow: 0 10px 24px -8px var(--glow, var(--brand));
+            outline: none;
+        }
+        .social-links a:focus-visible {
+            box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+        }
+        /* Label that pops up under each icon on hover (desktop) */
+        .social-links a::after {
+            content: attr(data-label);
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translate(-50%, -4px);
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: var(--surface);
+            color: #fff;
+            font-size: 0.75em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .social-links a:hover::after {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        .social-links .yt { --brand: #ff0033; }
+        .social-links .tw { --brand: #9146ff; }
+        .social-links .x  { --brand: #fff; --on-brand: #000; --glow: rgba(255,255,255,.5); }
+        .social-links .ig { --brand: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); --glow: #d6249f; }
+        .social-links .fb { --brand: #0866ff; }
+        .social-links .tt { --brand: #000; --glow: #fe2c55; }
+        .social-links .md { --brand: #ffb800; --on-brand: var(--bg); }
+        @keyframes social-in {
+            from { opacity: 0; transform: translateY(10px) scale(0.9); }
+            to   { opacity: 1; transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .social-links a { animation: none; transition: none; }
+            .avatar::before { animation: none; }
+        }
+
+        /* Phones and small tablets: stack the player above the playlist */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4em;
+                padding: 0 12px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 16px;
+            }
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .video-container {
+                flex: none;
+                width: 100%;
+            }
+            #player {
+                flex: none;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+            .player-controls { padding: 8px 10px; gap: 8px; }
+            .player-btn { padding: 0 14px; }
+            .player-btn .btn-text { display: none; } /* icons only on phones */
+            .player-btn svg { width: 22px; height: 22px; }
+            .playlist-panel {
+                flex: none;
+                max-height: 60vh;
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            .playlist-item img {
+                width: 96px;
+            }
+            .playlist-item span {
+                font-size: 0.9em;
+            }
+            .social-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .social-links {
+                gap: 8px; /* 7 x 42px + 6 x 8px = 342px: one row on a 360px+ phone */
+            }
+            .social-links a {
+                width: 42px;
+                height: 42px;
+            }
+            .social-links svg {
+                width: 20px;
+                height: 20px;
+            }
+            .social-links a::after {
+                display: none; /* no hover on touch screens */
+            }
+        }
+    </style>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+    <div style="background:#ff2fd2;color:#fff;font:600 14px/1.4 Arial,sans-serif;text-align:center;padding:8px 12px;position:relative;z-index:99999;width:100%;box-sizing:border-box;align-self:stretch">Archived: v4.5 (November 2026). <a href="/" style="color:#fff">See the current site</a> &middot; <a href="/archive/" style="color:#fff">All versions</a></div>
+    <header>
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="DannyXZombie avatar: a grinning devil-horned zombie gamer with a headset" width="400" height="400">
+        </div>
+        <h1>Danny Zombie</h1>
+        <p class="tagline">Gamer &middot; Creator &middot; Builder</p>
+    </header>
+    <div class="description">
+        <p>My name is Danny Zombie and I love video games. <br>Explore my favorite video games, watch gameplay videos, and join the gaming community.</p>
+    </div>
+    <div class="social-container">
+        <div class="tooltip">Click here for my socials!</div>
+        <button class="button" onclick="toggleSocialLinks()" aria-expanded="false" aria-controls="social-links">Join the Horde!</button>
+        <!-- Brand icons: Simple Icons (CC0), drawn inline so they're crisp at any size and need no outside requests -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.930 24 12 24 12s0-3.930-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
+            <symbol id="i-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+            <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></symbol>
+            <symbol id="i-instagram" viewBox="0 0 24 24"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></symbol>
+            <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></symbol>
+            <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.090 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.750-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.080-1.03-2.020-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.070-.14 1.61.24 1.64 1.82 3.020 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+            <!-- Generic medal drawn by hand: Simple Icons has no Medal.tv icon (checked v16.38.0) -->
+            <symbol id="i-medal" viewBox="0 0 24 24"><path d="M7 1h4l2.2 5.2A8 8 0 0 0 11 6.1zM17 1h-4l-1.1 2.6 1.7 4a8 8 0 0 1 1.9.7z"/><path d="M12 8a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm0 3.2 1.25 2.55 2.8.4-2.03 1.98.48 2.79L12 17.6l-2.5 1.32.48-2.79-2.03-1.98 2.8-.4z"/></symbol>
+        </svg>
+        <nav class="social-links" id="social-links" aria-label="Social media">
+            <a class="yt" style="--i:0" href="https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA" target="_blank" rel="noopener" aria-label="YouTube" data-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+            <a class="tw" style="--i:1" href="https://twitch.tv/DANNYZOMBIE" target="_blank" rel="noopener" aria-label="Twitch" data-label="Twitch"><svg><use href="#i-twitch"/></svg></a>
+            <a class="x"  style="--i:2" href="https://x.com/DANNYXZOMBIE" target="_blank" rel="noopener" aria-label="X (Twitter)" data-label="X"><svg><use href="#i-x"/></svg></a>
+            <a class="ig" style="--i:3" href="https://instagram.com/DANNYXZOMBIE" target="_blank" rel="noopener" aria-label="Instagram" data-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+            <a class="fb" style="--i:4" href="https://facebook.com/DANNYxZOMBIE" target="_blank" rel="noopener" aria-label="Facebook" data-label="Facebook"><svg><use href="#i-facebook"/></svg></a>
+            <a class="tt" style="--i:5" href="https://tiktok.com/@DANNYXZOMBIE" target="_blank" rel="noopener" aria-label="TikTok" data-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
+            <a class="md" style="--i:6" href="https://medal.tv/U/DANNYZOMBIE" target="_blank" rel="noopener" aria-label="Medal" data-label="Medal"><svg><use href="#i-medal"/></svg></a>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="video-container">
+            <div id="player"></div>
+            <div class="player-controls">
+                <button class="player-btn" id="prev-btn" type="button" aria-label="Previous video">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM9.5 12 18 6v12z"/></svg>
+                    <span class="btn-text">Prev</span>
+                </button>
+                <div class="now-playing" id="now-playing" aria-live="polite"></div>
+                <button class="player-btn" id="next-btn" type="button" aria-label="Next video">
+                    <span class="btn-text">Next</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+                </button>
+                <button class="shuffle-btn" id="shuffle-btn" type="button" aria-label="Shuffle" aria-pressed="true" title="Shuffle is on">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 9.2 5.4 4 4 5.4l5.2 5.2 1.4-1.4zM14.5 4l2 2L4 18.6 5.4 20 18 7.5l2 2V4h-5.5zm.3 9.4-1.4 1.4 3.1 3.1L14.5 20H20v-5.5l-2 2-3.2-3.1z"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="playlist-panel" id="playlist-panel"></div>
+    </div>
+    <footer>
+        <p>Thank you for visiting!</p>
+        <p><a class="footer-link" href="/archive/">See every version of this site</a></p>
+    </footer>
+
+    <script data-cfasync="false">
+        const videos = [
+            { id: 'iG4-vkwlua0', title: 'WE DID IT! BACK TO BACK WINS INTO DIAMOND, LETS GO #apexlegends #apex #gaming #apexgameplay #ranked' },
+            { id: 'pSG8lsEwn2o', title: 'Apex Legends ranked gameplay | Close game! 8 elims with squad | 4 kills 2k damage' },
+            { id: '6TKKxtONSqc', title: 'Apex Legends ranked gameplay - 11 elims with squad! Close game - Road to DIAMOND!' },
+            { id: 'xsyvRGug-Aw', title: 'Apex Legends Control Montage #control #apex #apexlegends #montage' },
+            { id: 'wZCC64nDniI', title: 'TM8 has immaculate awareness! xD #shorts #apexlegends #apexshorts #squad #funny #gameplay #memes' },
+            { id: 'sF2UCyJdejk', title: 'I RAN OUT OF AMMO T_T | Apex Legends gameplay | #apex #gaming #gameplay #season14 #s14 #apexlegends' },
+            { id: 'DdbDcg8AKfE', title: 'Apex Legends Ranking up Season 14 gameplay' },
+            { id: 'xZNt_t4EHw0', title: 'Dropshot games with a team! | Road to GC in Extra Modes | Rocket League Gameplay | Stream Highlight' },
+            { id: '7XiqtEMDAwk', title: 'Apex Legends Gameplay PoopMontage #5 | #apex #gaming #gameplay #season14 #s14 #apexlegends #montage' },
+            { id: 'WDPWRZZlkFc', title: 'Apex Legends 15 kills ( Xbox STREAM-HIGHLIGHTS made with Athenascope)' },
+            { id: 'gvOaKFMR9f4', title: 'Rocket League Extra modes | placements and grinding | half hour of me having fun | Stream Highlight' },
+            { id: 'UmQq6BSNjqc', title: 'APEX LEGENDS // battlepass grinding, need to get to level 100! (FULL-STREAM DANNY ZOMBIE)' },
+            { id: 'YxsMnHgzbgA', title: 'Made it to Diamond on Xbox! lets keep going! :D | Apex Legends gameplay (Full stream)' },
+            { id: '4LaLXpXYXl4', title: 'first guy had absolutely no idea what was coming to him! xD #shorts #apexlegends' },
+            { id: 'J-4kUPSXHKI', title: 'Stream Highlight: 2k dmg 8 kill game Win with mirage and i ranked up!' },
+            { id: '6rviozTkHys', title: 'Apex Legends Winter Express 2k damage 8 kill game // STREAM HIGHLIGHT GAMEPLAY' },
+            { id: 'mkuIN79idz0', title: 'Extra modes! Doing placements and just grinding! | stream #2 | ROCKET LEAGUE GAMEPLAY (FULL STREAM)' },
+            { id: '1cc3lwafEPg', title: 'Stream Highlight: 1600dmg 6 kill Win with revenant in Plat lobby' },
+            { id: 'Z8tOZYK2F3Q', title: 'yo theres nobody here??! | Xbox Titanfall1 servers | Titanfall2 | Apex Legends| End w/ Rocket League' },
+            { id: 'FgqAP2twZgs', title: 'Highlight: Pilot hunting // Apex Legends Duos - 5 kill W on Olympus' },
+            { id: '2x4HNRLvKZw', title: 'Highlight: WE WILL GET TO DIAMOND EVENTUALLY | Gold Rank Ranked Gameplay, Close Games | APEX LEGENDS' },
+            { id: 'xQC3RzNvDZc', title: 'i love this game // chillin // pc Titanfall 2' },
+            { id: 'YR9pGibUXLg', title: 'wut it do lets get to Diamond b4 season ends! // Full Stream Apex Legends' },
+            { id: 'dRVS7QsOIuo', title: 'Highlight: Pilot hunting // Attrition - Complex - 30 Pilot kills' },
+            { id: '1zm6J38hZIk', title: 'Highlight: Pilot hunting // Apex Legends Arenas - 7 Kill game + W' },
+            { id: 'UdMSh8oFSs4', title: '"git gud" grind | Rocket League Gameplay | Full Stream' },
+            { id: '8S0OIa_AQ4Q', title: 'Highlight: lets see how far we get today. // pulled an ACEU in ranked. 6 kill solo game' },
+            { id: '_gF7aKynQuo', title: 'Highlight: lets see how far we get today. // 10 kill game 1600 damage in pubs with @zer0gravity66' },
+            { id: 'kVwxwMQP1oQ', title: 'Highlight: lets see how far we get today. // 11 kill game 3k damage in Gold // Ranked Apex Legends' },
+            { id: 'nHeo2gBgAEE', title: 'Highlight: ranked climb so i can play w/my friends // Win 3! Let\'s go! - 8 kills 2k damage' },
+            { id: 'o1dcWM684-c', title: 'Apex Legends Full Stream // ranked climb so i can play w/my friends' },
+            { id: 'd3sZ88nbtvo', title: 'Highlight: Pilot hunting // 34 Pilot kills in Forwardbase Kodai // Attrition' },
+            { id: 'V6l3lZU0fTk', title: 'video game jams // weeeeeee // Titanfall 2 into Rocket League' },
+            { id: 'LbV1cn5qGGM', title: 'Pilot hunting ~ Titanfall 2 then Apex Legends and Rocket League' },
+            { id: 'Z8KFkWBu9PQ', title: 'APEX LEGENDS GAMEPLAY DUOS // TRIOS TRYING OUT FUSE | BP GRIND | XBOX (FULL STREAM)' },
+            { id: 'EMJCeZOhubY', title: 'Highlight: ranked climb so i can play w/my friends // Win #2 - 9 kills - 2k damage' },
+            { id: '93HU5jBtj7w', title: 'Highlight: Pilot hunting // 33 Pilot Kills in Relic, made a comeback! // Attrition // SKIP TO 2:20' },
+            { id: 'Uqn4KcwoIKk', title: 'Highlight: Pilot hunting // Attrition on Forwardbase Kodai - 30 Pilot kills' },
+            { id: 'Sh9dOHaFj9A', title: 'Highlight: video game jams // weeeeeee // 36 Pilot kills in Attrition - Boomtown' },
+            { id: '1J2Tzczbc0w', title: 'Highlight: i love this game // Pilot vs Pilot // LMFAO someone thought i was hacking 🤣' },
+            { id: 'gj122kRh3JA', title: 'Highlight: i love this game // Bounty Hunt - i do a little bit of everything 😏' },
+            { id: 'Uz3cgd6op2E', title: 'Highlight: i love this game // PC - audio went out half way :( and we lost :(( but my ending was dec' },
+            { id: 'AQzGLTJHRvs', title: 'WE WILL GET TO DIAMOND EVENTUALLY | new year same me | APEX LEGENDS GAMEPLAY (FULL STREAM)' },
+            { id: '1QS36KySpt4', title: 'disruptor rounds are coming back!!? lets get to Diamond b4 season ends! // Full Stream Apex Legends' },
+            { id: '112u-rnku_s', title: 'Highlight: Ranked Apex climb so i can play w/my friends // First W - 7 kills' },
+            { id: 'zRua-ugVNT4', title: 'Apex Legends Full Stream // The goal is platinum rank and 900 kills with wraith' },
+            { id: 'wNU4BhGRhkA', title: 'Highlight: Pilot hunting // 26 Pilot kills on Exoplanet // Attrition' }
+        ];
+        
+        let player;
+        let currentIndex = 0;      // position in `videos` of what's playing now
+
+        // ---------- Play order: shuffle deck or list order, remembered across reloads ----------
+        const STORE_KEY = 'dxz-player-v4';  // own key: this page shares a domain with the live site
+        let shuffleOn = true;      // default for first-time visitors
+        let order = [];            // shuffled positions in `videos`; each appears exactly once
+        let deckPos = 0;           // where we are in `order`
+
+        // Fisher–Yates: every arrangement is equally likely
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Fresh deck that never starts with `avoid` (so a new round can't repeat the last video)
+        function newDeck(avoid) {
+            const deck = shuffle(videos.map((_, i) => i));
+            if (deck[0] === avoid && deck.length > 1) [deck[0], deck[1]] = [deck[1], deck[0]];
+            return deck;
+        }
+
+        // Saved as video IDs, not positions, so adding/removing videos later can't scramble it.
+        // Wrapped in try/catch: storage can be blocked (private mode, strict privacy settings).
+        function saveState() {
+            try {
+                localStorage.setItem(STORE_KEY, JSON.stringify({
+                    shuffle: shuffleOn,
+                    order: order.map(i => videos[i].id),
+                    last: videos[currentIndex].id
+                }));
+            } catch (e) { /* not saved; the player still works */ }
+        }
+
+        function loadState() {
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) {}
+            const indexOfId = id => videos.findIndex(v => v.id === id);
+
+            if (saved && typeof saved.shuffle === 'boolean') shuffleOn = saved.shuffle;
+            const last = saved ? indexOfId(saved.last) : -1;
+
+            // Reuse the saved deck only if it still matches the current video list exactly
+            const savedOrder = saved && Array.isArray(saved.order) ? saved.order.map(indexOfId) : [];
+            const deckValid = savedOrder.length === videos.length &&
+                              new Set(savedOrder).size === videos.length && !savedOrder.includes(-1);
+
+            order = deckValid ? savedOrder : newDeck(last);
+
+            if (last === -1) {
+                // First visit: start at the top of the deck (or anywhere, in list mode)
+                currentIndex = shuffleOn ? order[0] : Math.floor(Math.random() * videos.length);
+            } else {
+                // Returning: start on the video AFTER the one played last time, never the same one
+                currentIndex = pickNextIndex(last, 1);
+            }
+            deckPos = order.indexOf(currentIndex);
+            saveState();
+        }
+
+        // Load YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            randomizeAndLoadVideo();
+            displayPlaylist();
+        }
+
+        function randomizeAndLoadVideo() {
+            loadState();   // picks currentIndex: next in the saved deck, or a fresh start
+            setShuffle(shuffleOn);   // make the toggle match the saved setting
+
+            player = new YT.Player('player', {
+                width: '100%',
+                height: '100%',
+                videoId: videos[currentIndex].id,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    mute: 1,          // browsers only allow autoplay when muted
+                    rel: 0,
+                    playsinline: 1    // play inside the page on iPhones, not fullscreen
+                },
+                events: {
+                    onReady: (event) => {
+                        // Set while still muted: tested 2026-11-15, the player keeps this
+                        // level, so the viewer's first unmute plays at 50%, not 100%.
+                        event.target.setVolume(50);
+                        markActive(false);
+                    },
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            // When a video finishes, roll straight into the next one
+            if (event.data === YT.PlayerState.ENDED) {
+                step(1);
+            }
+        }
+
+        /**
+         * Decide which video plays after `current`.
+         * direction is +1 (Next button / video ended) or -1 (Prev button).
+         * Must return a valid index into `videos` (0 to videos.length - 1).
+         */
+        function pickNextIndex(current, direction) {
+            if (!shuffleOn) {
+                // List order with wrap-around. Adding videos.length first keeps
+                // the result positive when going back from video 0.
+                return (current + direction + videos.length) % videos.length;
+            }
+            // Shuffle: step through the deck. Prev really goes back; no repeats until all are played.
+            let pos = order.indexOf(current) + direction;
+            if (pos >= order.length) {          // whole deck played: reshuffle for a new round
+                order = newDeck(current);
+                pos = 0;
+            }
+            if (pos < 0) pos = order.length - 1;
+            deckPos = pos;
+            return order[pos];
+        }
+
+        function step(direction) {
+            playIndex(pickNextIndex(currentIndex, direction));
+        }
+
+        function playIndex(index) {
+            currentIndex = index;
+            deckPos = order.indexOf(index);  // playlist clicks: carry on through the deck from here
+            player.loadVideoById(videos[index].id);
+            markActive(true);
+            saveState();
+        }
+
+        function setShuffle(on) {
+            shuffleOn = on;
+            const btn = document.getElementById('shuffle-btn');
+            btn.setAttribute('aria-pressed', on);
+            btn.title = on ? 'Shuffle is on' : 'Shuffle is off (playing in list order)';
+            saveState();
+        }
+
+        // Highlight the playing video in the panel and show its title under the player
+        function markActive(scroll) {
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                const isActive = i === currentIndex;
+                item.classList.toggle('active', isActive);
+                item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                if (isActive && scroll) item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            });
+            document.getElementById('now-playing').textContent = videos[currentIndex].title;
+        }
+
+        function displayPlaylist() {
+            const playlistPanel = document.getElementById('playlist-panel');
+            playlistPanel.innerHTML = ''; // Clear the panel
+            videos.forEach((video, i) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.onclick = () => playIndex(i);
+                item.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${video.id}/default.jpg" alt="" loading="lazy">
+                    <span>${video.title}</span>
+                `;
+                playlistPanel.appendChild(item);
+            });
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', () => step(-1));
+        document.getElementById('next-btn').addEventListener('click', () => step(1));
+        document.getElementById('shuffle-btn').addEventListener('click', () => setShuffle(!shuffleOn));
+
+        function toggleSocialLinks() {
+            const socialLinks = document.getElementById('social-links');
+            const isOpen = socialLinks.classList.toggle('open');
+            document.querySelector('.social-container .button').setAttribute('aria-expanded', isOpen);
+        }
+    </script>
+</body>
+</html>
