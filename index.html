@@ -36,11 +36,15 @@
             <img src="images/avatar.jpg" alt="DannyXZombie avatar: a grinning devil-horned zombie gamer with a headset" width="400" height="400">
         </div>
         <h1>Danny Zombie</h1>
-        <p class="tagline">Gamer &middot; Creator &middot; Builder</p>
+        <p class="tagline">Gamer, creator, and hands-on troubleshooter learning to code and mod games.</p>
+        <nav class="site-menu" aria-label="Sections">
+            <a href="#projects">Projects</a>
+            <a href="#learning">Learning</a>
+            <a href="#about">About</a>
+            <a href="#videos">Videos</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
-    <div class="description">
-        <p>My name is Danny Zombie and I love video games. <br>Explore my favorite video games, watch gameplay videos, and join the gaming community.</p>
-    </div>
     <div class="social-container">
         <div class="tooltip">Click here for my socials!</div>
         <button class="button" id="horde-btn" type="button" aria-expanded="false" aria-controls="social-links">Join the Horde!</button>
@@ -65,6 +69,60 @@
             <a class="md" style="--i:6" href="https://medal.tv/U/DANNYZOMBIE" target="_blank" rel="noopener" aria-label="Medal" data-label="Medal"><svg><use href="#i-medal"/></svg></a>
         </nav>
     </div>
+
+    <main>
+    <section class="section" id="projects">
+        <h2>Projects</h2>
+        <p class="section-intro">Real things I've made, newest first.</p>
+        <div class="cards">
+            <article class="card card-media">
+                <a class="video-facade" id="ds-video" href="https://www.youtube.com/watch?v=PO_cHfsBtMU" data-video-id="PO_cHfsBtMU" aria-label="Play the video: Custom 3DS boot screen">
+                    <img src="images/3ds-boot-screen.jpg" alt="Before and after: an Old 3DS XL turned off, then booting with the custom DANNY ZOMBIE screen" width="960" height="540" loading="lazy">
+                    <span class="play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+                </a>
+                <div class="card-body">
+                    <h3>Custom 3DS boot screen</h3>
+                    <p>My first homebrew project: a custom Luma3DS boot screen for my Old 3DS. The top screen (400&times;240) shows DANNY ZOMBIE, and the bottom screen (320&times;240) is a Luma button guide. I designed both in Canva, and it runs on my own console.</p>
+                    <div class="card-links">
+                        <a href="https://youtu.be/PO_cHfsBtMU" target="_blank" rel="noopener">Watch on YouTube</a>
+                        <a href="https://themeplaza.art/profile/dannyzombie" target="_blank" rel="noopener">ThemePlaza (submitted, waiting for approval)</a>
+                    </div>
+                </div>
+            </article>
+            <article class="card">
+                <div class="card-body">
+                    <h3>This website</h3>
+                    <p>Five versions since 2024. I built it with AI coding assistants: ChatGPT for v1&ndash;v3, and Claude Code since v4. It's hosted on Cloudflare with security headers.</p>
+                    <div class="card-links">
+                        <a href="/archive/">All versions</a>
+                        <a href="https://github.com/dannyzombie/dannyxzombie.com" target="_blank" rel="noopener">Source on GitHub</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="learning">
+        <h2>Now Learning</h2>
+        <p class="section-intro">I'm learning in public. Here's where I'm at.</p>
+        <ul class="learning-list">
+            <li>
+                <span>Codecademy: Learn How to Code</span>
+                <span class="progress-row"><progress value="66" max="100" aria-label="Learn How to Code progress"></progress> 66%</span>
+            </li>
+            <li>Learning HTML, CSS and JavaScript</li>
+            <li>Next up: C++ (toward game dev)</li>
+        </ul>
+    </section>
+
+    <section class="section" id="about">
+        <h2>About</h2>
+        <p>I've been working with my hands for more than 10 years. On a farm packing line I ran a robotic palletizer and changed its programs remotely over VNC. I fix phones, PCs and game consoles, and today I work as a field service technician repairing food service equipment, with some HVAC and refrigeration work.</p>
+        <p>All of it comes down to troubleshooting: figuring out why something broke and getting it running again. Now I'm putting that into code, learning to program and mod games. I'm bilingual in English and Spanish.</p>
+    </section>
+
+    <section class="section section-wide" id="videos">
+        <h2>Videos</h2>
     <div class="container">
         <div class="video-container">
             <div id="player"></div>
@@ -85,6 +143,23 @@
         </div>
         <div class="playlist-panel" id="playlist-panel"></div>
     </div>
+    </section>
+
+    <section class="section" id="contact">
+        <h2>Contact</h2>
+        <p>Want to work together, or just say hi? Email me at <a href="mailto:mail@dannyxzombie.com">mail@dannyxzombie.com</a>, or find me here:</p>
+        <ul class="social-list">
+            <li><a class="yt" href="https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-youtube"/></svg>YouTube</a></li>
+            <li><a class="tw" href="https://twitch.tv/DANNYZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-twitch"/></svg>Twitch</a></li>
+            <li><a class="x" href="https://x.com/DANNYXZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-x"/></svg>X</a></li>
+            <li><a class="ig" href="https://instagram.com/DANNYXZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg>Instagram</a></li>
+            <li><a class="fb" href="https://facebook.com/DANNYxZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg>Facebook</a></li>
+            <li><a class="tt" href="https://tiktok.com/@DANNYXZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-tiktok"/></svg>TikTok</a></li>
+            <li><a class="md" href="https://medal.tv/U/DANNYZOMBIE" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-medal"/></svg>Medal</a></li>
+        </ul>
+    </section>
+    </main>
+
     <footer>
         <p>Thank you for visiting!</p>
         <p><a class="footer-link" href="/archive/">See every version of this site</a></p>

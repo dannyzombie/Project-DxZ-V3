@@ -86,16 +86,12 @@ h1 {
         0 0 36px rgba(255, 47, 210, 0.6);
 }
 .tagline {
-    margin: 8px 0 0;
-    color: var(--muted);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: 0.85em;
-}
-.description {
-    margin: 20px 0;
-    font-size: 1.2em;
-    text-align: center;
+    max-width: 34em;
+    margin: 10px auto 0;
+    color: var(--text-soft);
+    letter-spacing: 0.5px;
+    font-size: 1.05em;
+    line-height: 1.5;
 }
 .social-container {
     display: flex;
@@ -350,10 +346,6 @@ footer p {
         font-size: 2.4em;
         padding: 0 12px;
     }
-    .description {
-        font-size: 1em;
-        padding: 0 16px;
-    }
     .container {
         flex-direction: column;
         height: auto;
@@ -401,4 +393,160 @@ footer p {
     .social-links a::after {
         display: none; /* no hover on touch screens */
     }
+}
+
+/* ---------- v5.0 portfolio sections ---------- */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .card, .site-menu a, .video-facade .play-icon { transition: none; }
+}
+
+/* Menu under the tagline: pills that wrap onto more lines on small screens */
+.site-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px 0 4px;
+}
+.site-menu a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 47, 210, 0.45);
+    color: var(--text-soft);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95em;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.site-menu a:hover,
+.site-menu a:focus-visible {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color: transparent;
+    color: #fff;
+    outline: none;
+}
+
+main { width: 100%; }
+.section {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px 16px;
+    box-sizing: border-box;
+    scroll-margin-top: 16px;
+}
+.section-wide { max-width: none; padding-left: 0; padding-right: 0; }
+.section-wide h2 { padding: 0 16px; }
+.section h2 {
+    margin: 0 0 12px;
+    font-size: 1.8em;
+    color: #ffd6f6;
+    text-shadow: 0 0 10px rgba(255, 47, 210, 0.55);
+}
+.section p { color: var(--text-soft); line-height: 1.6; }
+.section a { color: #ffd6f6; text-decoration-color: rgba(255, 47, 210, 0.6); text-underline-offset: 3px; }
+.section a:hover { color: var(--accent); }
+.section-intro { margin: 0 0 18px; color: var(--muted) !important; }
+
+/* Project cards */
+.cards { display: grid; gap: 20px; }
+.card {
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+.card:hover { border-color: rgba(255, 47, 210, 0.5); box-shadow: 0 14px 34px -18px var(--accent); }
+.card-body { padding: 16px 18px 18px; }
+.card h3 { margin: 0 0 8px; font-size: 1.3em; }
+.card p { margin: 0 0 14px; }
+.card-links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-weight: 700; }
+
+/* 3DS video: thumbnail + play button until clicked (js/site.js swaps in the player) */
+.video-facade {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+}
+.video-facade img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.video-facade .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 24px rgba(255, 47, 210, 0.8);
+    transition: transform 0.2s;
+}
+.video-facade .play-icon svg { width: 36px; height: 36px; fill: #fff; margin-left: 4px; }
+.video-facade:hover .play-icon,
+.video-facade:focus-visible .play-icon { transform: scale(1.1); }
+.video-facade:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.card-video { aspect-ratio: 16 / 9; }
+.card-video iframe { display: block; width: 100%; height: 100%; }
+
+/* Now Learning */
+.learning-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.learning-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border-radius: 12px;
+    color: var(--text-soft);
+}
+.progress-row { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: #ffd6f6; }
+.learning-list progress {
+    width: 160px;
+    height: 10px;
+    appearance: none;
+    border: none;
+    border-radius: 999px;
+    background: var(--surface-2);
+    overflow: hidden;
+}
+.learning-list progress::-webkit-progress-bar { background: var(--surface-2); border-radius: 999px; }
+.learning-list progress::-webkit-progress-value { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
+.learning-list progress::-moz-progress-bar { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
+
+/* Contact: the 7 socials, always visible, with text labels */
+.social-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.social-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-soft);
+    text-decoration: none;
+    font-weight: 700;
+}
+.social-list a:hover,
+.social-list a:focus-visible { border-color: var(--accent); color: #fff; outline: none; }
+.social-list svg { width: 20px; height: 20px; fill: currentColor; }
+
+@media (max-width: 768px) {
+    .section h2 { font-size: 1.5em; }
+    .learning-list progress { width: 120px; }
+}
+@media (min-width: 769px) {
+    /* Project with a video: picture on the left, text on the right */
+    .card-media { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; }
 }
