@@ -13,7 +13,7 @@ The site is now a portfolio, not just a gaming hub.
 - A menu and new sections: About (first), Projects, Now Learning and Contact. About includes how I use AI: to learn and build while understanding the code, not just "vibe coding"
 - First project card: my custom 3DS boot screen, with its YouTube video. The video only loads when you click it, so the page stays fast. If YouTube is blocked, the click opens the video on YouTube instead
 - Only one video plays at a time: starting the 3DS video pauses the main player, and the other way around
-- Contact section with my email and all 7 social links always visible (the "Join the Horde!" button still works too)
+- Contact section with my email and my social links always visible, now including GitHub and Xbox (the "Join the Horde!" button still works too)
 - Search basics: a clearer page title and description, information about me that search engines can read (schema.org Person), `sitemap.xml` and `robots.txt`
 - v4.5 is saved on the All Versions page at `/archive/v4/`. It keeps its own shuffle order, so visiting it doesn't change the live site's
 
@@ -23,6 +23,7 @@ The site is now a portfolio, not just a gaming hub.
 - New tagline: "Gamer, creator, and hands-on troubleshooter learning to code and mod games."
 
 ### Fixed
+- The TikTok link now points straight to @dannyzombie (the old @DANNYXZOMBIE address only redirected there)
 - Playlist titles no longer squeeze into a few letters per line on tablet and small laptop screens: when the playlist column is narrow, each thumbnail now sits above its title (this was also broken in v4)
 - The browser theme color now works (it used a CSS variable, which `<meta>` tags can't read)
 

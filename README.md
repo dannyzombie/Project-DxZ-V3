@@ -10,7 +10,7 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 - **Project videos that load on click:** the 3DS project card shows a thumbnail and only loads the YouTube player when clicked. Only one video plays at a time.
 - **Video player with shuffle:** videos play back to back in a shuffled order with no repeats, with Prev/Next buttons and a toggle to switch to playlist order. It starts (muted) when you scroll down to it. Reloading the page carries on with the next video instead of starting over.
 - **Playlist panel:** pick any video from the list. The one playing is highlighted.
-- **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal, with animated brand-colored buttons.
+- **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal behind the "Join the Horde!" button, with animated brand-colored buttons. The Contact section lists those plus GitHub and Xbox.
 - **Works on phones:** on small screens the player goes full-width and the playlist moves underneath.
 - **Link previews:** sharing the link on Discord, X, iMessage and similar apps shows a preview card, and the site has its own icon in browser tabs.
 
@@ -18,7 +18,7 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 
 - **One page, no build step:** plain HTML in `index.html`, styles in `css/style.css`, and scripts in `js/`.
 - **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
-- **Icons:** the YouTube, Twitch, X, Instagram, Facebook and TikTok icons are from [Simple Icons](https://simpleicons.org) (CC0) and the Medal icon is a simple custom drawing. All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
+- **Icons:** the YouTube, Twitch, X, Instagram, Facebook, TikTok and GitHub icons are from [Simple Icons](https://simpleicons.org) (CC0). The Medal icon and the Xbox game-controller icon are simple custom drawings (Simple Icons has neither). All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
 - **Hosting:** [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/). Cloudflare deploys this repo automatically on every push to `main` (settings in `wrangler.jsonc`). `www` redirects to `dannyxzombie.com`.
 - **Security:** HTTPS only (HSTS), TLS 1.2+, DNSSEC, and security headers set in `_headers`. Files that aren't part of the website are kept off it by `.assetsignore`.
 
