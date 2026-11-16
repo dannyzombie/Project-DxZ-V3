@@ -10,7 +10,7 @@
  * (Cmd on a Mac), event.shiftKey, event.altKey, event.button (0 = left button).
  */
 function opensElsewhere(event) {
-    return event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !==0;
+    return event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0;
     
 }
 
