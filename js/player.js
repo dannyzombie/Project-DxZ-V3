@@ -113,11 +113,35 @@ function loadState() {
     saveState();
 }
 
-// Start once the YouTube API (loaded by js/yt-api.js) is ready
-dxzYT.ready.then(() => {
-    randomizeAndLoadVideo();
-    displayPlaylist();
-});
+// Load the player and playlist once the YouTube API (js/yt-api.js) is ready.
+// Safe to call more than once: only the first call does anything.
+let playerStarted = false;
+function startPlayer() {
+    if (playerStarted) return;
+    playerStarted = true;
+    dxzYT.ready.then(() => {
+        randomizeAndLoadVideo();
+        displayPlaylist();
+    });
+}
+
+// Start the main player only when the Videos section scrolls into view, so a
+// visitor who never scrolls down doesn't use up a video from the shuffle deck
+// and nothing plays where nobody can see it.
+function startWhenVisible() {
+    if (!('IntersectionObserver' in window)) {
+        startPlayer();
+        return;
+    }
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            observer.disconnect();
+            startPlayer();
+        }
+    }, { threshold: 0.25 });
+    observer.observe(document.querySelector('.container'));
+}
+startWhenVisible();
 
 function randomizeAndLoadVideo() {
     loadState();   // picks currentIndex: next in the saved deck, or a fresh start
@@ -128,7 +152,7 @@ function randomizeAndLoadVideo() {
         height: '100%',
         videoId: videos[currentIndex].id,
         playerVars: {
-            autoplay: 1,
+            autoplay: dxzYT.anyPlaying() ? 0 : 1,   // never interrupt a video the visitor started
             controls: 1,
             mute: 1,          // browsers only allow autoplay when muted
             rel: 0,

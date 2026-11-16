@@ -20,6 +20,12 @@
             if (!players.includes(player)) players.push(player);
         },
 
+        // True while any registered player is playing
+        anyPlaying() {
+            return players.some(p => typeof p.getPlayerState === 'function' &&
+                                     p.getPlayerState() === YT.PlayerState.PLAYING);
+        },
+
         // Players forward their state changes here. When one starts playing,
         // every other registered player is paused.
         notify(player, state) {
