@@ -41,6 +41,16 @@ function loadCardVideo(facade) {
     });
 }
 
+// Coming back with the browser's Back button can restore this page exactly as it
+// was, including a card still marked "loading" from the YouTube fallback. Reset it
+// so the card works again.
+window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    document.querySelectorAll('.video-facade[data-loading]').forEach(facade => {
+        delete facade.dataset.loading;
+    });
+});
+
 document.querySelectorAll('.video-facade').forEach(facade => {
     facade.addEventListener('click', event => {
         event.preventDefault();
