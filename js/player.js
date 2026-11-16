@@ -51,6 +51,8 @@ const videos = [
 ];
 
 let player;
+let playerReady = false;   // true once YouTube says the player can take commands
+let stateLoaded = false;   // true once the saved shuffle order has been read
 let currentIndex = 0;      // position in `videos` of what's playing now
 
 // ---------- Play order: shuffle deck or list order, remembered across reloads ----------
@@ -110,6 +112,7 @@ function loadState() {
         currentIndex = pickNextIndex(last, 1);
     }
     deckPos = order.indexOf(currentIndex);
+    stateLoaded = true;
     saveState();
 }
 
@@ -164,6 +167,7 @@ function randomizeAndLoadVideo() {
                 // level, so the viewer's first unmute plays at 50%, not 100%.
                 event.target.setVolume(50);
                 dxzYT.exclusive(event.target);   // only one video on the page plays at a time
+                playerReady = true;
                 markActive(false);
             },
             onStateChange: onPlayerStateChange
@@ -202,10 +206,12 @@ function pickNextIndex(current, direction) {
 }
 
 function step(direction) {
+    if (!playerReady) return;   // buttons do nothing until the player has loaded
     playIndex(pickNextIndex(currentIndex, direction));
 }
 
 function playIndex(index) {
+    if (!playerReady) return;   // playlist clicks wait for the player too
     currentIndex = index;
     deckPos = order.indexOf(index);  // playlist clicks: carry on through the deck from here
     player.loadVideoById(videos[index].id);
@@ -218,7 +224,7 @@ function setShuffle(on) {
     const btn = document.getElementById('shuffle-btn');
     btn.setAttribute('aria-pressed', on);
     btn.title = on ? 'Shuffle is on' : 'Shuffle is off (playing in list order)';
-    saveState();
+    if (stateLoaded) saveState();   // never save over the real order before it has been read
 }
 
 // Highlight the playing video in the panel and show its title under the player
