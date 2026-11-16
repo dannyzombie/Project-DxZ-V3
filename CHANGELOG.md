@@ -7,8 +7,14 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 
 ## Unreleased
 
+## v5.4 (2026-11-16)
+
 ### Added
 - Google Search Console verification file (`google6614dbcbd559b5ef.html`). It has to stay in the repo or Google stops treating the site as verified
+
+### Changed
+- "My learning trail" now matches my real progress on each site (checked Nov 16, 2026): 2022 adds freeCodeCamp's Basic CSS and Applied Visual Design plus Khan Academy's Intro to JS; 2024 adds my freeCodeCamp Colored Markers project and the Registration Form I started
+- "Now Learning" rewritten (I typed it myself): freeCodeCamp, building this site with Claude Code, YouTube SEO, using AI tools the right way, and next up a Python chatbot. The old Codecademy 66% bar is gone, since I haven't touched that course since 2024
 
 ### Fixed
 - 3DS video card: clicking it now shows a spinning "loading" ring right away, instead of nothing for up to 4 seconds
