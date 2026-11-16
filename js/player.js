@@ -1,6 +1,9 @@
 // Main video player: shuffle deck, Prev/Next, playlist (moved out of index.html in v5.0)
 
-const videos = [
+// Hand-picked videos. Since v5.1 these are the backup: the player normally adds my
+// latest uploads from /api/videos (see worker/index.js), and uses only this list
+// if that fails.
+const builtInVideos = [
     { id: 'iG4-vkwlua0', title: 'WE DID IT! BACK TO BACK WINS INTO DIAMOND, LETS GO #apexlegends #apex #gaming #apexgameplay #ranked' },
     { id: 'pSG8lsEwn2o', title: 'Apex Legends ranked gameplay | Close game! 8 elims with squad | 4 kills 2k damage' },
     { id: '6TKKxtONSqc', title: 'Apex Legends ranked gameplay - 11 elims with squad! Close game - Road to DIAMOND!' },
@@ -49,6 +52,33 @@ const videos = [
     { id: 'zRua-ugVNT4', title: 'Apex Legends Full Stream // The goal is platinum rank and 900 kills with wraith' },
     { id: 'wNU4BhGRhkA', title: 'Highlight: Pilot hunting // 26 Pilot kills on Exoplanet // Attrition' }
 ];
+
+let videos = builtInVideos;   // the list the player uses; replaced by mergeVideos() when fresh videos arrive
+
+// Ask the site's Worker for my latest uploads. Gives up after 3 seconds and on
+// any error, so a YouTube or network problem never leaves the player empty.
+async function loadFreshVideos() {
+    try {
+        const res = await fetch('/api/videos', { signal: AbortSignal.timeout(3000) });
+        if (!res.ok) return;
+        const data = await res.json();
+        const fresh = (Array.isArray(data.videos) ? data.videos : [])
+            .filter(v => v && typeof v.id === 'string' && typeof v.title === 'string');
+        if (fresh.length) videos = mergeVideos(fresh, builtInVideos);
+    } catch (e) { /* keep the built-in list */ }
+}
+
+/**
+ * Combine my latest uploads with the hand-picked list into the one list the player uses.
+ * fresh:   newest first, from YouTube, e.g. [{ id, title, published }, ...] (up to 50)
+ * builtIn: the 47 hand-picked videos above, [{ id, title }, ...]
+ * Must return an array of { id, title } with no video listed twice.
+ */
+function mergeVideos(fresh, builtIn) {
+    const seen = new Set(fresh.map(v => v.id));
+    const oldOnes = builtIn.filter(v => !seen.has(v.id));
+    return [...fresh, ...oldOnes];
+}
 
 let player;
 let playerReady = false;   // true once YouTube says the player can take commands
@@ -122,7 +152,7 @@ let playerStarted = false;
 function startPlayer() {
     if (playerStarted) return;
     playerStarted = true;
-    dxzYT.ready.then(() => {
+    Promise.all([dxzYT.ready, loadFreshVideos()]).then(() => {
         randomizeAndLoadVideo();
         displayPlaylist();
     });
@@ -245,10 +275,15 @@ function displayPlaylist() {
         const item = document.createElement('div');
         item.className = 'playlist-item';
         item.onclick = () => playIndex(i);
-        item.innerHTML = `
-            <img src="https://img.youtube.com/vi/${video.id}/default.jpg" alt="" loading="lazy">
-            <span>${video.title}</span>
-        `;
+        // Built with createElement + textContent, not innerHTML: titles now come from
+        // YouTube, and a title containing < or & must show as text, not become HTML.
+        const img = document.createElement('img');
+        img.src = `https://img.youtube.com/vi/${encodeURIComponent(video.id)}/default.jpg`;
+        img.alt = '';
+        img.loading = 'lazy';
+        const span = document.createElement('span');
+        span.textContent = video.title;
+        item.append(img, span);
         playlistPanel.appendChild(item);
     });
 }

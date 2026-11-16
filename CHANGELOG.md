@@ -5,6 +5,15 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v5.1 (2026-11-15)
+
+### Added
+- The playlist now updates itself: my latest public YouTube uploads appear first, followed by my hand-picked favorites, with no video listed twice. A small Cloudflare Worker script (`worker/index.js`) asks the YouTube Data API at most once an hour. Its key is a Cloudflare secret, never in this repo. The merge step (`mergeVideos` in `js/player.js`) is code I wrote myself
+- If YouTube can't be reached within 3 seconds, the player falls back to the hand-picked list, so it never shows up empty
+
+### Fixed
+- Playlist titles are now inserted as plain text, so a title containing `<` or `&` can't break the page
+
 ## v5.0 (2026-11-15)
 
 The site is now a portfolio, not just a gaming hub.

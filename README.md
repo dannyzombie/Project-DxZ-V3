@@ -17,7 +17,7 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 ## How it works
 
 - **One page, no build step:** plain HTML in `index.html`, styles in `css/style.css`, and scripts in `js/`.
-- **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
+- **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The playlist shows my latest public uploads first, then my hand-picked favorites. A small Cloudflare Worker script (`worker/index.js`) gets the latest uploads from the [YouTube Data API](https://developers.google.com/youtube/v3) and caches them for an hour. Its API key is a Cloudflare secret, restricted to the YouTube Data API only, so **nothing secret lives in this repo or in the page**. If YouTube can't be reached, the player uses only the hand-picked list.
 - **Icons:** the YouTube, Twitch, X, Instagram, Facebook, TikTok and GitHub icons are from [Simple Icons](https://simpleicons.org) (CC0). The Medal icon and the Xbox game-controller icon are simple custom drawings (Simple Icons has neither). All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
 - **Hosting:** [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/). Cloudflare deploys this repo automatically on every push to `main` (settings in `wrangler.jsonc`). `www` redirects to `dannyxzombie.com`.
 - **Security:** HTTPS only (HSTS), TLS 1.2+, DNSSEC, and security headers set in `_headers`. Files that aren't part of the website are kept off it by `.assetsignore`.
@@ -29,7 +29,8 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 | `index.html` | The page: all sections and their text |
 | `css/style.css` | All the styles (colors, layout, phone sizes) |
 | `js/yt-api.js` | Loads YouTube's player code once and makes sure only one video plays at a time |
-| `js/player.js` | The main video player: shuffle, Prev/Next, playlist, start on scroll |
+| `js/player.js` | The main video player: shuffle, Prev/Next, playlist, start on scroll, latest uploads |
+| `worker/index.js` | Cloudflare Worker script: answers `/api/videos` with my latest YouTube uploads (not published as a file) |
 | `js/site.js` | The "Join the Horde!" button and the click-to-load project video |
 | `images/` | My avatar and the 3DS project thumbnail |
 | `robots.txt`, `sitemap.xml` | Tell search engines what pages the site has |
@@ -51,7 +52,7 @@ This repo holds the full history of all versions. V1 and V2 started out as separ
 
 ## Run it locally
 
-Any static file server works. With Node.js installed:
+Any static file server works for the page (the latest-uploads list needs the Worker, so locally the player uses the hand-picked list). With Node.js installed:
 
 ```bash
 npx serve .
@@ -63,7 +64,7 @@ Then open the address it prints.
 
 - [x] Turn the site into a full portfolio with Projects, Now Learning, About, Videos and Contact sections
 - [ ] Modern restyle: cleaner fonts, smooth scrolling and animations
-- [ ] Pull my latest uploads automatically instead of a hand-picked list
+- [x] Pull my latest uploads automatically, keeping the hand-picked list as a backup
 - [x] Split the single file into separate HTML, CSS and JS
 
 ## How it was built

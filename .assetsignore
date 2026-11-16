@@ -15,6 +15,8 @@ node_modules
 docs
 .superpowers
 wrangler.jsonc
+# The Worker's own code (it runs on Cloudflare; it is not a public file)
+worker
 wrangler.toml
 package.json
 package-lock.json

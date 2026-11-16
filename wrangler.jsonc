@@ -7,9 +7,15 @@
   "observability": {
     "enabled": true
   },
+  // Small script (v5.1) that answers /api/videos with my latest YouTube uploads.
+  // It needs the YOUTUBE_API_KEY secret, set in the Cloudflare dashboard (never in this repo).
+  "main": "worker/index.js",
   // The whole repo folder is the website; .assetsignore lists files that must NOT be published.
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    // Only /api/ addresses run the script first; every other file is served straight away.
+    "run_worker_first": ["/api/*"]
   },
   // Serve only on the real domain. These routes replace any routes set in the dashboard on each deploy.
   // www.dannyxzombie.com is redirected to dannyxzombie.com by a Cloudflare redirect rule.
