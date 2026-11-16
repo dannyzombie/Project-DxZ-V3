@@ -2,11 +2,13 @@
 
 My personal website, live at **[dannyxzombie.com](https://dannyxzombie.com)**.
 
-Right now it's a gaming hub that plays videos from my [YouTube channel](https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA) and links to all my socials. It's growing into a full portfolio that shows everything I do and like to do.
+It's my portfolio: the projects I've made, what I'm learning, a bit about me, gameplay videos from my [YouTube channel](https://www.youtube.com/channel/UCJGtHu4d7wUZmPxrtDYmotA), and links to all my socials.
 
 ## Features
 
-- **Video player with shuffle:** videos play back to back in a shuffled order with no repeats, with Prev/Next buttons and a toggle to switch to playlist order. Reloading the page carries on with the next video instead of starting over.
+- **Portfolio sections:** Projects, Now Learning, About, Videos and Contact, with a menu that jumps to each one.
+- **Project videos that load on click:** the 3DS project card shows a thumbnail and only loads the YouTube player when clicked. Only one video plays at a time.
+- **Video player with shuffle:** videos play back to back in a shuffled order with no repeats, with Prev/Next buttons and a toggle to switch to playlist order. It starts (muted) when you scroll down to it. Reloading the page carries on with the next video instead of starting over.
 - **Playlist panel:** pick any video from the list. The one playing is highlighted.
 - **Social links:** YouTube, Twitch, X, Instagram, Facebook, TikTok and Medal, with animated brand-colored buttons.
 - **Works on phones:** on small screens the player goes full-width and the playlist moves underneath.
@@ -14,7 +16,7 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 
 ## How it works
 
-- **One page, no build step:** plain HTML, CSS and JavaScript in `index.html`.
+- **One page, no build step:** plain HTML in `index.html`, styles in `css/style.css`, and scripts in `js/`.
 - **Video player:** uses the [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference). The video list is a hand-picked set of video IDs in the page, so **no API key is needed and nothing secret lives in this repo**.
 - **Icons:** the YouTube, Twitch, X, Instagram, Facebook and TikTok icons are from [Simple Icons](https://simpleicons.org) (CC0) and the Medal icon is a simple custom drawing. All are inline SVG, so the icons need no outside image requests. (Video thumbnails in the playlist do load from YouTube.)
 - **Hosting:** [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/). Cloudflare deploys this repo automatically on every push to `main` (settings in `wrangler.jsonc`). `www` redirects to `dannyxzombie.com`.
@@ -24,7 +26,13 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 
 | File | What it is |
 |---|---|
-| `index.html` | The whole site: layout, styles and scripts |
+| `index.html` | The page: all sections and their text |
+| `css/style.css` | All the styles (colors, layout, phone sizes) |
+| `js/yt-api.js` | Loads YouTube's player code once and makes sure only one video plays at a time |
+| `js/player.js` | The main video player: shuffle, Prev/Next, playlist, start on scroll |
+| `js/site.js` | The "Join the Horde!" button and the click-to-load project video |
+| `images/` | My avatar and the 3DS project thumbnail |
+| `robots.txt`, `sitemap.xml` | Tell search engines what pages the site has |
 | `favicon.svg`, `favicon-32.png` | Browser tab icon |
 | `apple-touch-icon.png` | Icon shown when the site is saved to a phone's home screen |
 | `og-image.png` | Preview image shown when the link is shared |
@@ -33,7 +41,7 @@ Right now it's a gaming hub that plays videos from my [YouTube channel](https://
 | `.assetsignore` | Repo files that are not published to the website |
 | `CNAME` | Old GitHub Pages domain setting (GitHub Pages is the backup host) |
 | `CHANGELOG.md` | What changed in each version |
-| `archive/` | Every earlier version of the site (v1, v2, v3), viewable at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) |
+| `archive/` | Every earlier version of the site (v1 to v4), viewable at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) |
 
 ## Versions
 
@@ -53,10 +61,10 @@ Then open the address it prints.
 
 ## Roadmap
 
-- [ ] Turn the site into a full portfolio with About, Skills, Projects, Videos and Contact sections
+- [x] Turn the site into a full portfolio with Projects, Now Learning, About, Videos and Contact sections
 - [ ] Modern restyle: cleaner fonts, smooth scrolling and animations
 - [ ] Pull my latest uploads automatically instead of a hand-picked list
-- [ ] Split the single file into separate HTML, CSS and JS
+- [x] Split the single file into separate HTML, CSS and JS
 
 ## How it was built
 

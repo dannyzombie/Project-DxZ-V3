@@ -5,6 +5,26 @@ Each version is tagged in git and has a matching [GitHub Release](https://github
 
 Version numbers: the first number goes up for a big redesign (v5.0), the second for new features or fixes (v4.1).
 
+## v5.0 (2026-11-15)
+
+The site is now a portfolio, not just a gaming hub.
+
+### Added
+- A menu and new sections: Projects, Now Learning, About and Contact
+- First project card: my custom 3DS boot screen, with its YouTube video. The video only loads when you click it, so the page stays fast. If YouTube is blocked, the click opens the video on YouTube instead
+- Only one video plays at a time: starting the 3DS video pauses the main player, and the other way around
+- Contact section with my email and all 7 social links always visible (the "Join the Horde!" button still works too)
+- Search basics: a clearer page title and description, information about me that search engines can read (schema.org Person), `sitemap.xml` and `robots.txt`
+- v4.5 is saved on the All Versions page at `/archive/v4/`. It keeps its own shuffle order, so visiting it doesn't change the live site's
+
+### Changed
+- The main video player now starts when you scroll down to the Videos section, not when the page opens, so nothing plays out of sight and visitors who don't scroll don't use up a video from the shuffle order
+- The code is split into `index.html`, `css/style.css` and `js/` files instead of one big file. The scroll-start code in `js/player.js` is the first code I wrote myself
+- New tagline: "Gamer, creator, and hands-on troubleshooter learning to code and mod games."
+
+### Fixed
+- The browser theme color now works (it used a CSS variable, which `<meta>` tags can't read)
+
 ## v4.5 (2026-11-15)
 
 ### Changed
