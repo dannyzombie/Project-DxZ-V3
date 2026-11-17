@@ -7,6 +7,9 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 
 ## Unreleased
 
+### Added
+- A new "Now Learning" row about my code lessons: learning how my own site works, line by line (the Cloudflare Worker, caching, secrets and security headers)
+
 ### Removed
 - The GitHub Pages backup copy of the site. Cloudflare's Worker is now the only host. The `CNAME` file is gone, the old DNS records that pointed to GitHub were swapped for Cloudflare placeholders, and dannyxzombie.com is verified on my GitHub account so nobody else can claim it there
 
