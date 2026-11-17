@@ -11,6 +11,10 @@
     src: url('../fonts/creepster-latin.woff2') format('woff2');
 }
 
+/* <picture> only picks WebP or JPG; it shouldn't change the layout,
+   so its <img> keeps sizing itself against the box around it */
+picture { display: contents; }
+
 /* ---------- Theme: colors pulled from the DannyXZombie avatar ---------- */
 :root {
     --bg: #0f0814;          /* near-black purple background */

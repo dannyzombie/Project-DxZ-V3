@@ -13,6 +13,10 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 ### Removed
 - The GitHub Pages backup copy of the site. Cloudflare's Worker is now the only host. The `CNAME` file is gone, the old DNS records that pointed to GitHub were swapped for Cloudflare placeholders, and dannyxzombie.com is verified on my GitHub account so nobody else can claim it there
 
+### Changed
+- The avatar and 3DS project images now load as WebP (about 65% smaller: 48 KB → 18 KB and 102 KB → 34 KB). The JPGs stay as a fallback for old browsers through `<picture>` tags
+- Browsers now keep the font for a year and images for a week (`_headers`), so repeat visits don't download them again
+
 ### Fixed
 - The title no longer jumps when its font loads: the Creepster font now lives in the repo (`fonts/`, with its OFL license) and preloads, instead of coming through Google Fonts. (A 12-second load seen in Chrome turned out to be my home internet connection, not the site: Google, GitHub and cloudflare.com showed the same delay.)
 

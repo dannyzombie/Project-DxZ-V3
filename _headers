@@ -7,6 +7,15 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Content-Security-Policy: frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'
 
+# Let browsers keep files that rarely change, so repeat visits skip the download.
+# Fonts never change: 1 year. Images: 1 week (if one is replaced under the same
+# name, visitors see the new one within a week). CSS/JS stay on the default
+# (check every visit) so site updates show up right away.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/images/*
+  Cache-Control: public, max-age=604800
+
 # freeCodeCamp practice pages: shown inside project cards, but kept out of
 # Google results (they're course exercises, not pages of their own)
 /projects/*
