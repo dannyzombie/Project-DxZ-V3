@@ -24,5 +24,4 @@ package-lock.json
 # Repo documents (they live on GitHub, not on the website)
 *.md
 LICENSE
-CNAME
 archive/*/LICENSE

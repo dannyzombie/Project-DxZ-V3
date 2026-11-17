@@ -7,8 +7,11 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 
 ## Unreleased
 
+### Removed
+- The GitHub Pages backup copy of the site. Cloudflare's Worker is now the only host. The `CNAME` file is gone, the old DNS records that pointed to GitHub were swapped for Cloudflare placeholders, and dannyxzombie.com is verified on my GitHub account so nobody else can claim it there
+
 ### Fixed
-- The site sometimes took about 12 seconds to start loading. The cause was Cloudflare swapping in its own copy of the Google Fonts link and waiting on Google. The Creepster title font now lives in the repo (`fonts/`, with its OFL license) and preloads, which also stops the title from jumping when the font arrives
+- The title no longer jumps when its font loads: the Creepster font now lives in the repo (`fonts/`, with its OFL license) and preloads, instead of coming through Google Fonts. (A 12-second load seen in Chrome turned out to be my home internet connection, not the site: Google, GitHub and cloudflare.com showed the same delay.)
 
 ## v5.4 (2026-11-16)
 

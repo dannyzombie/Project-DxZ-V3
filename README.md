@@ -42,7 +42,6 @@ It's my portfolio: the projects I've made, what I'm learning, a bit about me, ga
 | `wrangler.jsonc` | Cloudflare Worker settings (domain, deploy options) |
 | `_headers` | Security headers added to every page |
 | `.assetsignore` | Repo files that are not published to the website |
-| `CNAME` | Old GitHub Pages domain setting (GitHub Pages is the backup host) |
 | `CHANGELOG.md` | What changed in each version |
 | `archive/` | Every earlier version of the site (v1 to v4), viewable at [dannyxzombie.com/archive](https://dannyxzombie.com/archive/) |
 
