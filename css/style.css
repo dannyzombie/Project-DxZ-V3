@@ -1,5 +1,16 @@
 /* Styles for dannyxzombie.com (moved out of index.html in v5.0) */
 
+/* ---------- Title font: Creepster, hosted here (license: fonts/OFL.txt) ----------
+   Served from our own site instead of Google Fonts: Cloudflare's font rewrite
+   sometimes held the whole page for ~12 seconds while it waited on Google. */
+@font-face {
+    font-family: 'Creepster';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/creepster-latin.woff2') format('woff2');
+}
+
 /* ---------- Theme: colors pulled from the DannyXZombie avatar ---------- */
 :root {
     --bg: #0f0814;          /* near-black purple background */

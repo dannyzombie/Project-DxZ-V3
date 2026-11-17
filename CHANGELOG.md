@@ -7,6 +7,9 @@ Version numbers: the first number goes up for a big redesign (v5.0), the second 
 
 ## Unreleased
 
+### Fixed
+- The site sometimes took about 12 seconds to start loading. The cause was Cloudflare swapping in its own copy of the Google Fonts link and waiting on Google. The Creepster title font now lives in the repo (`fonts/`, with its OFL license) and preloads, which also stops the title from jumping when the font arrives
+
 ## v5.4 (2026-11-16)
 
 ### Added
